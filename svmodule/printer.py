@@ -21,7 +21,7 @@
 
 from .moddict import ModDict
 
-from .printers.printerbase import PrinterBase
+from .printers import PrinterBase
 
 
 class Printer(object):

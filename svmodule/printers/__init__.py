@@ -21,6 +21,7 @@
 
 # Load printers
 
+from .printerbase import PrinterBase
 from .doctable import DocTable
 from .importlist import ImportList
 from .initlatch import InitLatch
