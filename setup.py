@@ -9,7 +9,7 @@ setup(name='svmodule',
       author='Christophe Clienti',
       author_email='cclienti@wavecruncher.net',
       license='GPL-3.0',
-      packages=['svmodule'],
+      packages=['svmodule', 'svmodule.printers'],
       install_requires=[],
       entry_points = {'console_scripts': ['svmodp=svmodule.cli:main'],},
       zip_safe=False)
