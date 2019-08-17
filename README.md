@@ -12,5 +12,5 @@ SVModule is distributed under the GPLv3, the complete license description can be
 [here](http://www.gnu.org/licenses/gpl-3.0.html).
 
 ## General information
-Tests are being restructured and the documentation will be available soon [here](https://wavecruncher.net). Of course,
+Tests are being restructured and the documentation is available [here](https://wavecruncher.net/svmodule). Of course,
 contribution are welcomed.
