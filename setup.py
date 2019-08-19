@@ -12,4 +12,10 @@ setup(name='svmodule',
       packages=['svmodule', 'svmodule.printers'],
       install_requires=[],
       entry_points = {'console_scripts': ['svmodp=svmodule.cli:main'],},
-      zip_safe=False)
+      zip_safe=False
+      classifiers=["Programming Language :: Python :: 3",
+                   "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+                   "Operating System :: OS Independent",
+                   "Development Status :: 5 - Production/Stable",
+                   "Environment :: Console",
+                   "Intended Audience :: Developers"])
