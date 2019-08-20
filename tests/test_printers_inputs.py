@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
@@ -20,8 +19,7 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 
 
-teststrings = [
-    """module alu_dsp
+TEST_MODULE_0 = """module alu_dsp
   #(parameter add_extra_instr  = 1,  //use extra instructions (rotl, ...)
     parameter add_select_instr = 1,  //use select instructions
     parameter string add_select_instr = "M144k, auto",  //use select instructions
@@ -35,19 +33,10 @@ teststrings = [
     input [1:0]   cmode,
     input [2:0]   opcode1, opcode2,
     output        out_en,
-    output [31:0] out);""",
+    output [31:0] out);"""
 
-    """module alu_dsp  (input         clk, enable, is_signed,
-    input         enacc, sub_nadd, selacc, resetrs0,
-    input [31:0]  rs0, rs1, imm,
-    input         mulmux, selop0, selop1,
-    input [1:0]   selshift,
-    input [1:0]   cmode,
-    input [2:0]   opcode1, opcode2,
-    output        out_en,
-    output [31:0] out);""",
 
-    """module mymod
+TEST_MODULE_1 = """module mymod
 #
 (
    /* Multi line
@@ -86,9 +75,10 @@ teststrings = [
    /* test 3
     */
    output logic [15:0]  m_simple_array3
-);""",
+);"""
 
-    """module testmod(
+
+TEST_MODULE_2 = """module testmod(
    input logic          srst,
    input logic          clk,
 
@@ -107,10 +97,11 @@ teststrings = [
    input logic          another_clock,
    otherinterface.slave oitf,
    output logic         outsig3
-  );""",
+  );
+"""
 
 
-    """module testmod2(
+TEST_MODULE_3 = """module testmod2(
    input logic          srst,
    input logic          clk,
 
@@ -120,9 +111,10 @@ teststrings = [
    output logic         outsig3 [1:0]
 
 
-);""",
+);"""
 
-    """module testmod3
+
+TEST_MODULE_4 = """module testmod3
   import pkg1::test, pkg2::test2, pkg3::* ;
 
 ( input logic          srst,
@@ -134,6 +126,16 @@ teststrings = [
    output logic         outsig3 [1:0]
 
 
-);""",
+);"""
 
-]
+
+TEST_MODULE_5 = """module alu_dsp  (input         clk, enable, is_signed,
+    input         enacc, sub_nadd, selacc, resetrs0,
+    input [31:0]  rs0, rs1, imm,
+    input         mulmux, selop0, selop1,
+    input [1:0]   selshift,
+    input [1:0]   cmode,
+    input [2:0]   opcode1, opcode2,
+    output        out_en,
+    output [31:0] out);
+"""
