@@ -34,6 +34,9 @@ class Signals(PrinterBase):
         strval = ''
 
         for p in self.pmod['ports']:
+            if p['interface'] is True:
+                continue
+
             strval += idt
 
             # if p['type'] == '':
@@ -53,20 +56,15 @@ class Signals(PrinterBase):
             else:
                 strval += 'reg'
 
-            if p['interface'] is False and p['packed'] != '':
+            if p['packed'] != '':
                 strval += ' ' + p['packed']
 
             strval += ' ' + p['name']
 
-            if p['interface'] is True and p['packed'] != '':
+            if p['packed'] != '':
                 strval += ' ' + p['packed']
 
-            if p['unpacked'] != '':
-                strval += '' + p['unpacked']
-
-            if p['interface'] is True:
-                strval += '()'
-
+            strval += '' + p['unpacked']
             strval += ';\n'
 
         return strval

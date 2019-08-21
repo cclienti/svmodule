@@ -44,6 +44,9 @@ class DocTable(PrinterBase):
         return (maxstr, l)
 
     def getparameters(self):
+        if not self.pmod['parameters']:
+            return ''
+
         param_name = ['Name']
         param_type = ['Type']
         param_value = ['Default value']
@@ -85,9 +88,12 @@ class DocTable(PrinterBase):
             else:
                 strval += thinline + '\n'
 
-        return strval
+        return strval + '\n'
 
     def getsignals(self):
+        if not self.pmod['ports']:
+            return ''
+
         # prepare tables columns
         signame = ['Name']
         sigdir = ['I/O type']
@@ -145,4 +151,4 @@ class DocTable(PrinterBase):
         return strval
 
     def getstr(self):
-        return self.getparameters() + '\n' + self.getsignals()
+        return self.getparameters() + self.getsignals()

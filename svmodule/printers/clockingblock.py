@@ -117,6 +117,6 @@ class ClockingBlock(PrinterBase):
                     # We must list all the interface's members and assign them accordingly.
                     strval += 2 * idt + '//' + port['direction'] + ' ' + port['name'] + ';\n'
 
-        strval += idt + 'endclocking'
+        strval += idt + 'endclocking\n'
 
         return strval
