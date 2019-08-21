@@ -18,7 +18,7 @@
 #
 # Copyright (C) 2019 Christophe Clienti
 
-"""Test AST classes."""
+"""Test Printer classes."""
 
 import unittest
 
@@ -78,7 +78,7 @@ class TestPastAsInstance(unittest.TestCase):
 
         printer = Printer(moddict, indentSize=2)
         instance = printer['Instance']
-        print(instance)
+
         self.assertEqual('\n' + instance, TEST_MODULE_4_REF)
 
 

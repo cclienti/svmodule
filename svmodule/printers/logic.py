@@ -32,6 +32,9 @@ class Logic(PrinterBase):
         strval = ''
 
         for p in self.pmod['ports']:
+            if p['type'] == '':
+                continue
+
             strval += idt
             strval += p['type'] + ' ' + p['packed']
             strval += ' ' + p['name'] + p['unpacked']

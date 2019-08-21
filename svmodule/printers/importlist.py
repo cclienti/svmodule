@@ -23,8 +23,7 @@ from .printerbase import PrinterBase
 
 
 class ImportList(PrinterBase):
-    """Returns a string with the list of input ports initialized
-    to zero using '<=' token.
+    """Return the list of imported package.
     """
 
     def getstr(self):
