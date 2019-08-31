@@ -20,7 +20,6 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 
 import sys
-import os
 import tempfile
 import argparse
 
@@ -62,99 +61,100 @@ def reverse_module(dump_file):
 def paste_as_module(dump_file, indent_size):
     """Paste as a SystemVerilog module."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['Module'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['Module'])
 
 
 def paste_as_packages(dump_file, indent_size):
     """Paste as a SystemVerilog packages import."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['ImportList'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['ImportList'])
 
 
 def paste_as_instance(dump_file, indent_size):
     """Paste as a SystemVerilog instance."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['Instance'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['Instance'])
 
 
 def paste_as_clockingblock(dump_file, indent_size):
     """Paste as a SystemVerilog Clocking Block."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['ClockingBlock'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['ClockingBlock'])
 
 
 def paste_as_parameters(dump_file, indent_size):
     """Paste as SystemVerilog localparams."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['Parameters'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['Parameters'])
 
 
 def paste_as_signals(dump_file, indent_size):
     """Paste as SystemVerilog signals."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['Signals'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['Signals'])
 
 
 def paste_as_logic(dump_file, indent_size):
     """Paste as SystemVerilog logic."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['Logic'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['Logic'])
 
 
 def paste_as_init_latch(dump_file, indent_size):
     """Paste as SystemVerilog latch initialization."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['InitLatch'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['InitLatch'])
 
 
 def paste_as_init_wire(dump_file, indent_size):
     """Paste as SystemVerilog wire initialization."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['InitWire'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['InitWire'])
 
 
 def paste_as_doc_table(dump_file, indent_size):
     """Paste as Sphynx table."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['DocTable'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['DocTable'])
 
 
-def paste_as_yaml(dump_file, indent_size):
-    """Paste as YAML."""
+def paste_as_wavedisp(dump_file, indent_size):
+    """Paste as Wavedisp."""
 
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['Yaml'])
-
-
-def paste_as_pandaxml(dump_file, indent_size):
-    """Paste as YAML."""
-
-    p = Printer(load_moddict(dump_file), indent_size)
-    print(p['PandaXml'])
+    prn = Printer(load_moddict(dump_file), indent_size)
+    print(prn['Wavedisp'])
 
 
 def main():
-    default_dump = tempfile.gettempdir() + '/svmodule-dump'
+    """Command line interface entry point."""
 
-    description = 'Smart Copy & Paste of [System]Verilog files'
-    parser = argparse.ArgumentParser(description=description,
+    parser = argparse.ArgumentParser(description='Smart Copy & Paste of [System]Verilog files',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('-z', '--indent-size', type=int, default=4, help='Paste as PandaXML')
-
     parser.add_argument('-d', '--dump', metavar='filename', type=str,
-                        default=default_dump, help='parsed module file')
+                        default=tempfile.gettempdir() + '/svmodule-dump',
+                        help='parsed module file')
 
+    # Indent group
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument('-z', '--indent-size', type=int, default=4,
+                       help='set the indentation size')
+
+    group.add_argument('-n', '--indent-use-tab', action='store_true',
+                       help='use tab instead of tab for indentation')
+
+    # Action group
     group = parser.add_mutually_exclusive_group()
 
     group.add_argument('-c', '--copy', metavar='filename', type=str,
@@ -193,11 +193,8 @@ def main():
     group.add_argument('-t', '--paste-as-doc-table', action='store_true', default=False,
                        help='Paste as Sphinx Table')
 
-    group.add_argument('-y', '--paste-as-yaml', action='store_true', default=False,
+    group.add_argument('-v', '--paste-as-wavedisp', action='store_true', default=False,
                        help='Paste as YAML')
-
-    group.add_argument('-x', '--paste-as-pandaxml', action='store_true', default=False,
-                       help='Paste as PandaXML')
 
     args = parser.parse_args()
 
@@ -237,11 +234,11 @@ def main():
     elif args.paste_as_doc_table is True:
         paste_as_doc_table(args.dump, args.indent_size)
 
-    elif args.paste_as_yaml is True:
-        paste_as_yaml(args.dump, args.indent_size)
-
-    elif args.paste_as_pandaxml is True:
-        paste_as_pandaxml(args.dump, args.indent_size)
+    elif args.paste_as_wavedisp is True:
+        paste_as_wavedisp(args.dump, args.indent_size)
 
     else:
         parser.print_help()
+        sys.exit(1)
+
+    sys.exit(0)
