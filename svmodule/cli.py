@@ -194,7 +194,7 @@ def main():
                        help='Paste as Sphinx Table')
 
     group.add_argument('-v', '--paste-as-wavedisp', action='store_true', default=False,
-                       help='Paste as YAML')
+                       help='Paste as Wavedisp generator')
 
     args = parser.parse_args()
 

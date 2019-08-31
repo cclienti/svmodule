@@ -33,5 +33,5 @@ from .parameters import Parameters
 from .signals import Signals
 from .logic import Logic
 from .clockingblock import ClockingBlock
-from .yaml import Yaml
+from .wavedisp import Wavedisp
 from .pandaxml import PandaXml
