@@ -19,4 +19,4 @@
 #
 # Copyright (C) 2013-2019 Christophe Clienti
 
-__version__ = 'v1.1.0'
+__version__ = 'v1.1.1'
