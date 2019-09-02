@@ -56,6 +56,8 @@ class Wavedisp(PrinterBase):
                 for idx in rng:
                     strval += idt + 'blk.add(Disp(\'{}[{}]\'))\n'.format(prn['name'], idx)
 
+        strval += idt + 'return blk\n'
+
         strval += '\n\n'
 
         strval += '\n'.join(['# -*- python -*-',
