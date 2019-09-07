@@ -27,18 +27,24 @@ from .port_range import get_range
 class Wavedisp(PrinterBase):
     """Wavedisp printer."""
 
-    def getstr(self, indentSize=3):
+    def getstr(self):
         """Return the generated string."""
 
-        idt = ' ' * indentSize
+        idt = ' ' * self.isize
 
         strval = '\n'.join(['# -*- python -*-',
                             '# To include in {0}_tb.wave.py:',
+                            '"""Wavedisp file for module {0}."""',
                             '',
-                            'from wavedisp.ast import *',
+                            'from wavedisp.ast import Hierarchy',
+                            'from wavedisp.ast import Group',
+                            'from wavedisp.ast import Block',
+                            'from wavedisp.ast import Disp',
+                            'from wavedisp.ast import Divider',
                             '',
                             '',
                             'def generator():',
+                            idt + '"""Generator for module {0}."""',
                             '']).format(self.pmod['name'])
 
         strval += idt + 'blk = Block()\n'
@@ -62,15 +68,21 @@ class Wavedisp(PrinterBase):
 
         strval += '\n'.join(['# -*- python -*-',
                              '# To include in {0}_tb.wave.py:',
+                             '"""Wavedisp file for module {0}_tb."""',
                              '',
-                             'from wavedisp.ast import *',
+                             'from wavedisp.ast import Hierarchy',
+                             'from wavedisp.ast import Group',
+                             'from wavedisp.ast import Block',
+                             'from wavedisp.ast import Disp',
+                             'from wavedisp.ast import Divider',
                              '',
                              '',
                              'def generator():',
-                             '    testbench = Hierarchy(\'{0}_tb\')',
-                             '    inst = testbench.add(Hierarchy(\'{0}\'))',
-                             '    inst.include(\'{0}.wave.py\')',
-                             '    return testbench',
+                             idt + '"""Generator for module {0}_tb."""',
+                             idt + 'testbench = Hierarchy(\'{0}_tb\')',
+                             idt + 'inst = testbench.add(Hierarchy(\'{0}\'))',
+                             idt + 'inst.include(\'{0}.wave.py\')',
+                             idt + 'return testbench',
                              '']).format(self.pmod['name'])
 
         return strval
