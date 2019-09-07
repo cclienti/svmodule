@@ -27,8 +27,22 @@ class ClockingBlock(PrinterBase):
     """
     Returns the clocking block
     """
+    clock_patterns = ('clock', 'clk')
 
-    def searchInputClock(self):
+    reset_patterns = (('sreset_n', ''),
+                      ('sresetn', ''),
+                      ('srst_n', ''),
+                      ('srstn', ''),
+                      ('sreset', ''),
+                      ('srst', ''),
+                      ('reset_n', 'negedge'),
+                      ('resetn', 'negedge'),
+                      ('rst_n', 'negedge'),
+                      ('rstn', 'negedge'),
+                      ('reset', 'posedge'),
+                      ('rst', 'posedge'))
+
+    def search_input_clock(self):
         """
         Search for a clock in the port list.
         Returns the clock name
@@ -36,15 +50,13 @@ class ClockingBlock(PrinterBase):
 
         for port in self.pmod['ports']:
             if port['direction'] == 'input':
-                if 'clock' in port['name'].lower():
-                    return port['name']
-
-                if 'clk' in port['name'].lower():
-                    return port['name']
+                for clk_name in self.clock_patterns:
+                    if clk_name in port['name'].lower():
+                        return port['name']
 
         return None
 
-    def searchInputReset(self):
+    def search_input_reset(self):
         """
         Search for a reset in the port list.
         Returns ('negedge' | 'posedge', | ''), reset_name
@@ -52,49 +64,18 @@ class ClockingBlock(PrinterBase):
 
         for port in self.pmod['ports']:
             if port['direction'] == 'input':
-                if 'sreset_n' in port['name'].lower():
-                    return ('', port['name'])
-
-                if 'sresetn' in port['name'].lower():
-                    return ('', port['name'])
-
-                if 'srst_n' in port['name'].lower():
-                    return ('', port['name'])
-
-                if 'srstn' in port['name'].lower():
-                    return ('', port['name'])
-
-                if 'sreset' in port['name'].lower():
-                    return ('', port['name'])
-
-                if 'srst' in port['name'].lower():
-                    return ('', port['name'])
-
-                if 'reset_n' in port['name'].lower():
-                    return ('negedge', port['name'])
-
-                if 'resetn' in port['name'].lower():
-                    return ('negedge', port['name'])
-
-                if 'rst_n' in port['name'].lower():
-                    return ('negedge', port['name'])
-
-                if 'rstn' in port['name'].lower():
-                    return ('negedge', port['name'])
-
-                if 'reset' in port['name'].lower():
-                    return ('posedge', port['name'])
-
-                if 'rst' in port['name'].lower():
-                    return ('posedge', port['name'])
+                for rst_name, edge_value in self.reset_patterns:
+                    if rst_name in port['name'].lower():
+                        return (edge_value, port['name'])
 
         return (None, None)
 
-    def getstr(self, indentSize=3):
+    def getstr(self):
+        """Return clockingblock string."""
         idt = ' ' * self.isize
 
-        clockname = self.searchInputClock()
-        resetname = self.searchInputReset()
+        clockname = self.search_input_clock()
+        resetname = self.search_input_reset()
 
         strval = idt + 'default clocking cb '
         if clockname is None:
