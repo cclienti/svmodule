@@ -36,7 +36,7 @@ class TestPastAsLogic(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_0)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=2)
         logic = printer['Logic']
 
         self.assertEqual('\n' + logic, TEST_MODULE_0_REF)
@@ -46,7 +46,7 @@ class TestPastAsLogic(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_1)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=2)
         logic = printer['Logic']
 
         self.assertEqual('\n' + logic, TEST_MODULE_1_REF)
@@ -56,7 +56,7 @@ class TestPastAsLogic(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_2)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=2)
         logic = printer['Logic']
 
         self.assertEqual('\n' + logic, TEST_MODULE_2_REF)
@@ -66,7 +66,7 @@ class TestPastAsLogic(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_3)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=2)
         logic = printer['Logic']
 
         self.assertEqual('\n' + logic, TEST_MODULE_3_REF)
@@ -76,7 +76,7 @@ class TestPastAsLogic(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_4)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=2)
         logic = printer['Logic']
 
         self.assertEqual('\n' + logic, TEST_MODULE_4_REF)

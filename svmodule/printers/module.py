@@ -28,13 +28,13 @@ class Module(PrinterBase):
     constructor.
     """
 
-    def getImportPackages(self, indentSize=3):
+    def getImportPackages(self):
         """
         Returns a string with the list of package to import within
         the module decalration.
         """
 
-        idt = ' ' * indentSize
+        idt = ' ' * self.isize
 
         pkgs = self.pmod['import']
         nbpkgs = len(pkgs)
@@ -53,12 +53,12 @@ class Module(PrinterBase):
 
         return strval
 
-    def getParameters(self, indentSize=3):
+    def getParameters(self):
         """Returns a string with the list of parameters to be used in
         a module declaration. It will return an empty string if there
         is no parameters in the module.
        """
-        idt = ' ' * indentSize
+        idt = ' ' * self.isize
 
         params = self.pmod['parameters']
         nbparams = len(params)
@@ -98,11 +98,11 @@ class Module(PrinterBase):
 
         return strval
 
-    def getPorts(self, indentSize=3):
+    def getPorts(self):
         """Returns a string with the list of ports to be used in a
         module declaration, if list is empty, it will return "();".
        """
-        idt = ' ' * indentSize
+        idt = ' ' * self.isize
 
         ports = self.pmod['ports']
         nbports = len(ports)
@@ -130,23 +130,23 @@ class Module(PrinterBase):
 
         return strval
 
-    def getstr(self, indentSize=3):
+    def getstr(self):
         modname = self.pmod['name']
 
         strval = 'module ' + modname + '\n'
 
         # Insert import of packages
-        pkgs = self.getImportPackages(indentSize)
+        pkgs = self.getImportPackages()
         if pkgs != '':
             strval += pkgs + '\n'
 
         # Insert parameters
-        params = self.getParameters(indentSize)
+        params = self.getParameters()
         if params != '':
             strval += params + '\n'
 
         # Insert ports
-        strval += self.getPorts(indentSize)
+        strval += self.getPorts()
         strval += '\n'
 
         return strval

@@ -36,7 +36,7 @@ class TestPastAsImportList(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_0)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=2)
         importlist = printer['ImportList']
         print(importlist)
 
@@ -47,7 +47,7 @@ class TestPastAsImportList(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_1)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=2)
         importlist = printer['ImportList']
         print(importlist)
         self.assertEqual('\n' + importlist, TEST_MODULE_4_REF)

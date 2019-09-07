@@ -36,7 +36,7 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_0)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=3)
         wavedisp = printer['Wavedisp']
 
         self.assertEqual('\n' + wavedisp, TEST_MODULE_0_REF)
@@ -46,10 +46,9 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_1)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=3)
         wavedisp = printer['Wavedisp']
 
-        print(wavedisp)
         self.assertEqual('\n' + wavedisp, TEST_MODULE_1_REF)
 
     def test_past_as_wavedisp_2(self):
@@ -57,7 +56,7 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_2)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=3)
         wavedisp = printer['Wavedisp']
 
         print(wavedisp)
@@ -68,7 +67,7 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_3)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=3)
         wavedisp = printer['Wavedisp']
 
         self.assertEqual('\n' + wavedisp, TEST_MODULE_3_REF)
@@ -78,7 +77,7 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_4)
 
-        printer = Printer(moddict, indentSize=2)
+        printer = Printer(moddict, indent_size=3)
         wavedisp = printer['Wavedisp']
 
         self.assertEqual('\n' + wavedisp, TEST_MODULE_4_REF)
@@ -87,11 +86,17 @@ class TestPastAsWavedisp(unittest.TestCase):
 TEST_MODULE_0_REF = ("""
 # -*- python -*-
 # To include in alu_dsp_tb.wave.py:
+\"""Wavedisp file for module alu_dsp.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
+   \"""Generator for module alu_dsp.\"""
    blk = Block()
    blk.add(Disp('clk'))
    blk.add(Disp('enable'))
@@ -117,26 +122,38 @@ def generator():
 
 # -*- python -*-
 # To include in alu_dsp_tb.wave.py:
+\"""Wavedisp file for module alu_dsp_tb.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
-    testbench = Hierarchy('alu_dsp_tb')
-    inst = testbench.add(Hierarchy('alu_dsp'))
-    inst.include('alu_dsp.wave.py')
-    return testbench
+   \"""Generator for module alu_dsp_tb.\"""
+   testbench = Hierarchy('alu_dsp_tb')
+   inst = testbench.add(Hierarchy('alu_dsp'))
+   inst.include('alu_dsp.wave.py')
+   return testbench
 """)
 
 
 TEST_MODULE_1_REF = ("""
 # -*- python -*-
 # To include in mymod_tb.wave.py:
+\"""Wavedisp file for module mymod.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
+   \"""Generator for module mymod.\"""
    blk = Block()
    blk.add(Disp('reset_n'))
    blk.add(Disp('clock'))
@@ -153,26 +170,38 @@ def generator():
 
 # -*- python -*-
 # To include in mymod_tb.wave.py:
+\"""Wavedisp file for module mymod_tb.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
-    testbench = Hierarchy('mymod_tb')
-    inst = testbench.add(Hierarchy('mymod'))
-    inst.include('mymod.wave.py')
-    return testbench
+   \"""Generator for module mymod_tb.\"""
+   testbench = Hierarchy('mymod_tb')
+   inst = testbench.add(Hierarchy('mymod'))
+   inst.include('mymod.wave.py')
+   return testbench
 """)
 
 
 TEST_MODULE_2_REF = ("""
 # -*- python -*-
 # To include in testmod_tb.wave.py:
+\"""Wavedisp file for module testmod.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
+   \"""Generator for module testmod.\"""
    blk = Block()
    blk.add(Disp('srst'))
    blk.add(Disp('clk'))
@@ -193,26 +222,38 @@ def generator():
 
 # -*- python -*-
 # To include in testmod_tb.wave.py:
+\"""Wavedisp file for module testmod_tb.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
-    testbench = Hierarchy('testmod_tb')
-    inst = testbench.add(Hierarchy('testmod'))
-    inst.include('testmod.wave.py')
-    return testbench
+   \"""Generator for module testmod_tb.\"""
+   testbench = Hierarchy('testmod_tb')
+   inst = testbench.add(Hierarchy('testmod'))
+   inst.include('testmod.wave.py')
+   return testbench
 """)
 
 
 TEST_MODULE_3_REF = ("""
 # -*- python -*-
 # To include in testmod2_tb.wave.py:
+\"""Wavedisp file for module testmod2.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
+   \"""Generator for module testmod2.\"""
    blk = Block()
    blk.add(Disp('srst'))
    blk.add(Disp('clk'))
@@ -228,26 +269,38 @@ def generator():
 
 # -*- python -*-
 # To include in testmod2_tb.wave.py:
+\"""Wavedisp file for module testmod2_tb.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
-    testbench = Hierarchy('testmod2_tb')
-    inst = testbench.add(Hierarchy('testmod2'))
-    inst.include('testmod2.wave.py')
-    return testbench
+   \"""Generator for module testmod2_tb.\"""
+   testbench = Hierarchy('testmod2_tb')
+   inst = testbench.add(Hierarchy('testmod2'))
+   inst.include('testmod2.wave.py')
+   return testbench
 """)
 
 
 TEST_MODULE_4_REF = ("""
 # -*- python -*-
 # To include in testmod3_tb.wave.py:
+\"""Wavedisp file for module testmod3.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
+   \"""Generator for module testmod3.\"""
    blk = Block()
    blk.add(Disp('srst'))
    blk.add(Disp('clk'))
@@ -263,15 +316,21 @@ def generator():
 
 # -*- python -*-
 # To include in testmod3_tb.wave.py:
+\"""Wavedisp file for module testmod3_tb.\"""
 
-from wavedisp.ast import *
+from wavedisp.ast import Hierarchy
+from wavedisp.ast import Group
+from wavedisp.ast import Block
+from wavedisp.ast import Disp
+from wavedisp.ast import Divider
 
 
 def generator():
-    testbench = Hierarchy('testmod3_tb')
-    inst = testbench.add(Hierarchy('testmod3'))
-    inst.include('testmod3.wave.py')
-    return testbench
+   \"""Generator for module testmod3_tb.\"""
+   testbench = Hierarchy('testmod3_tb')
+   inst = testbench.add(Hierarchy('testmod3'))
+   inst.include('testmod3.wave.py')
+   return testbench
 """)
 
 
