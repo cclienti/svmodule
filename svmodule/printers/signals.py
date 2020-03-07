@@ -20,7 +20,6 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 
 from .printerbase import PrinterBase
-from .align import vertical_align_string
 
 
 class Signals(PrinterBase):

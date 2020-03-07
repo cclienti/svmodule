@@ -22,9 +22,9 @@
 import re
 
 
-class ParserHelper(object):
+class ParserHelper:
     @staticmethod
-    def isRange(strval):
+    def is_range(strval):
         """Returns True if the string is a SystemVerilog range.
         """
         if re.search(r'\[.*\]', strval) is not None:
@@ -33,7 +33,7 @@ class ParserHelper(object):
             return False
 
     @staticmethod
-    def isInterface(strval):
+    def is_interface(strval):
         """Returns True if the strval describes an interface with a
         module port definition.
         """
@@ -55,7 +55,7 @@ class ParserHelper(object):
             return True
 
     @staticmethod
-    def getArrays(strval):
+    def get_arrays(strval):
         """Returns arrays range(s).
         """
         # add @ around ranges to split by space
@@ -65,13 +65,13 @@ class ParserHelper(object):
         # iterates over lval to get each range
         strarrays = ''
         for l in lval:
-            if ParserHelper.isRange(l):
+            if ParserHelper.is_range(l):
                 strarrays += l
 
         return strarrays
 
     @staticmethod
-    def removeArrays(strval):
+    def remove_arrays(strval):
         """Returns a string without range(s).
         """
         # add @ around ranges to split by space
@@ -84,7 +84,7 @@ class ParserHelper(object):
         return lval[0]
 
     @staticmethod
-    def getNameAndType(strval):
+    def get_name_and_type(strval):
         """Returns name and type of a string like:
              - "int [31:0] GEN [31:0]" =>
                    ('int [31:0]', 'GEN [31:0]')
@@ -97,27 +97,27 @@ class ParserHelper(object):
          """
         x = re.split(' ', strval)
 
-        pName = ''
+        p_name = ''
         for i in range(len(x)):
             v = x.pop()
-            if ParserHelper.isRange(v):
-                pName = v + pName
+            if ParserHelper.is_range(v):
+                p_name = v + p_name
             else:
                 x.append(v)
                 break
 
         if len(x) != 0:
-            pName = x.pop() + pName
+            p_name = x.pop() + p_name
 
         if len(x) != 0:
-            pType = ' '.join(x)
+            p_type = ' '.join(x)
         else:
-            pType = ''
+            p_type = ''
 
-        return pType, pName
+        return p_type, p_name
 
     @staticmethod
-    def removeMultiLineComments(strval):
+    def remove_multiline_comments(strval):
         state = 0
         strnew = ''
         L = len(strval)
@@ -137,7 +137,7 @@ class ParserHelper(object):
 
 
 class Parser:
-    def parseBlock(self, strval):
+    def parse_block(self, strval):
         i = 0
         k = 0
 
@@ -156,17 +156,17 @@ class Parser:
 
         return (strval[:i], strval[i:])
 
-    def parseImportList(self):
+    def parse_import_list(self):
         """Returns a list of import packages"""
         return []
 
-    def parseParametersList(self):
+    def parse_parameters_list(self):
         """Returns a list of dictionnaries with parameter type,
         name and value.
         """
 
         # get Parameter block without parenthesis
-        x = self.parametersStr[1:-1]
+        x = self.parameters_str[1:-1]
 
         # remove parameter
         x = re.sub(r'[ ]*parameter[ ]*', r'', x)
@@ -178,7 +178,7 @@ class Parser:
         # Split parameters list
         params = re.split(',', x)
 
-        parametersList = []
+        parameters_list = []
 
         for p in params:
             # Restore comma in quotes
@@ -187,189 +187,174 @@ class Parser:
             # Extract param default value
             x = re.split('=', x)
             if len(x) > 1:
-                pValue = x[1]
+                p_value = x[1]
             else:
-                pValue = ''
+                p_value = ''
 
             x = x[0]
 
             # Extract type and name
-            pType, pName = ParserHelper.getNameAndType(x)
+            p_type, p_name = ParserHelper.get_name_and_type(x)
 
-            pPackedArrays = ParserHelper.getArrays(pType)
-            pUnpackedArrays = ParserHelper.getArrays(pName)
+            p_packed_arrays = ParserHelper.get_arrays(p_type)
+            p_unpacked_arrays = ParserHelper.get_arrays(p_name)
 
-            pType = ParserHelper.removeArrays(pType)
-            pName = ParserHelper.removeArrays(pName)
+            p_type = ParserHelper.remove_arrays(p_type)
+            p_name = ParserHelper.remove_arrays(p_name)
 
-            if pType == '' and pName == '' and pValue == '' and pPackedArrays == '' and pUnpackedArrays == '':
-                continue
+            if p_type == '' and p_name == '' and p_value == '':
+                if p_packed_arrays == '' and p_unpacked_arrays == '':
+                    continue
 
-            parametersList.append({'type':     pType,
-                                   'name':     pName,
-                                   'value':    pValue,
-                                   'packed':   pPackedArrays,
-                                   'unpacked': pUnpackedArrays})
+            parameters_list.append({'type': p_type,
+                                    'name': p_name,
+                                    'value': p_value,
+                                    'packed': p_packed_arrays,
+                                    'unpacked': p_unpacked_arrays})
 
-        return parametersList
+        return parameters_list
 
-    def parsePortsList(self):
+    def parse_ports_list(self):
         """Returns a list of dictionnaries with port direction,
-        isInterface, packed array range(s), unpacked array range(s),
+        is_interface, packed array range(s), unpacked array range(s),
         type and name.
         """
         # get Parameter block without parenthesis
-        x = self.portsStr[1:-1]
+        x = self.ports_str[1:-1]
 
         ports = re.split(',', x)
-        portsList = []
-        pTypePrev = ''
+        ports_list = []
+        p_type_prev = ''
 
         for p in ports:
             # Extract type and name
-            pType, pName = ParserHelper.getNameAndType(p)
+            p_type, p_name = ParserHelper.get_name_and_type(p)
 
-            # if pType is empty, it must be taken from the previous
+            # if p_type is empty, it must be taken from the previous
             # port.
-            if pType == '':
-                pType = pTypePrev
+            if p_type == '':
+                p_type = p_type_prev
             else:
-                pTypePrev = pType
+                p_type_prev = p_type
 
-            pPackedArrays = ParserHelper.getArrays(pType)
-            pUnpackedArrays = ParserHelper.getArrays(pName)
+            p_packed_arrays = ParserHelper.get_arrays(p_type)
+            p_unpacked_arrays = ParserHelper.get_arrays(p_name)
 
-            pType = ParserHelper.removeArrays(pType)
-            pName = ParserHelper.removeArrays(pName)
+            p_type = ParserHelper.remove_arrays(p_type)
+            p_name = ParserHelper.remove_arrays(p_name)
 
-            if ParserHelper.isInterface(pType):
-                pIsInterface = True
+            if ParserHelper.is_interface(p_type):
+                p_is_insterface = True
                 # extract the identifier after the dot* (within
                 # interface port type)
-                pDir = re.sub(r'.*\.([a-zA-Z_][a-zA-Z_0-9]*).*',
-                              r'\1',
-                              pType)
+                p_dir = re.sub(r'.*\.([a-zA-Z_][a-zA-Z_0-9]*).*',
+                               r'\1',
+                               p_type)
 
                 # remove the dot and the following indentifier
-                pType = re.sub(r'(.*)\.[a-zA-Z_][a-zA-Z_0-9]*[ ]*(.*)',
-                               r'\1 \2',
-                               pType)
+                p_type = re.sub(r'(.*)\.[a-zA-Z_][a-zA-Z_0-9]*[ ]*(.*)',
+                                r'\1 \2',
+                                p_type)
 
-                pType = re.sub(r'[ ]*$', '', pType)
+                p_type = re.sub(r'[ ]*$', '', p_type)
 
             else:
-                pIsInterface = False
+                p_is_insterface = False
                 # extract direction
-                pDir = re.sub(r'([a-zA-Z_][a-zA-Z_0-9]*)[ ]*.*', r'\1', pType)
+                p_dir = re.sub(r'([a-zA-Z_][a-zA-Z_0-9]*)[ ]*.*', r'\1', p_type)
                 # extract type
-                pType = re.sub(r'[a-zA-Z_][a-zA-Z_0-9]*[ ]*(.*)', r'\1', pType)
+                p_type = re.sub(r'[a-zA-Z_][a-zA-Z_0-9]*[ ]*(.*)', r'\1', p_type)
 
-            portsList.append({'interface': pIsInterface,
-                              'type':      pType,
-                              'direction': pDir,
-                              'name':      pName,
-                              'packed':    pPackedArrays,
-                              'unpacked':  pUnpackedArrays})
+            ports_list.append({'interface': p_is_insterface,
+                               'type': p_type,
+                               'direction': p_dir,
+                               'name': p_name,
+                               'packed': p_packed_arrays,
+                               'unpacked': p_unpacked_arrays})
 
-        return portsList
+        return ports_list
 
-    def __init__(self, moduleString):
+    def __init__(self, module_string):
         # remove one line comments
-        x = re.sub(r'//.*[\n\r]', r'', moduleString)
+        modstr = re.sub(r'//.*[\n\r]', r'', module_string)
 
         # flatten the string module
-        x = re.sub(r'[ \n\r\t]+', r' ', x)
+        modstr = re.sub(r'[ \n\r\t]+', r' ', modstr)
 
         # remove multiline comments
         # pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
         #                      re.DOTALL | re.MULTILINE)
-        # x = re.sub(pattern, r'', x)
-        x = ParserHelper.removeMultiLineComments(x)
+        # modstr = re.sub(pattern, r'', modstr)
+        modstr = ParserHelper.remove_multiline_comments(modstr)
 
         # remove everithing before module
-        x = re.sub(r'(^|.*[ ])module ', r'module ', x)
+        modstr = re.sub(r'(^|.*[ ])module ', r'module ', modstr)
 
         # remove everithing after the end of the module declaration
-        x = re.sub(r'\);.*$', r');', x)
+        modstr = re.sub(r'\);.*$', r');', modstr)
 
         # prepare the string to be parsed
-        x = re.sub(r'[ ]*=[ ]*', '=', x)
-        x = re.sub(r'[ ]*\([ ]*', '(', x)
-        x = re.sub(r'[ ]*\)[ ]*', ')', x)
-        x = re.sub(r'[ ]*\[[ ]*', ' [', x)
-        x = re.sub(r'[ ]*\][ ]*', '] ', x)
-        x = re.sub(r'[ ]*,[ ]*', ',', x)
-        x = re.sub(r'[ ]*;[ ]*', ';', x)
-        x = re.sub(r'[ ]*\);', ');', x)
-        x = re.sub(r'[ ]*\)\(', ')(', x)
+        modstr = re.sub(r'[ ]*=[ ]*', '=', modstr)
+        modstr = re.sub(r'[ ]*\([ ]*', '(', modstr)
+        modstr = re.sub(r'[ ]*\)[ ]*', ')', modstr)
+        modstr = re.sub(r'[ ]*\[[ ]*', ' [', modstr)
+        modstr = re.sub(r'[ ]*\][ ]*', '] ', modstr)
+        modstr = re.sub(r'[ ]*,[ ]*', ',', modstr)
+        modstr = re.sub(r'[ ]*;[ ]*', ';', modstr)
+        modstr = re.sub(r'[ ]*\);', ');', modstr)
+        modstr = re.sub(r'[ ]*\)\(', ')(', modstr)
 
         # parse moduleName
-        searchres = re.search('(?<=module )[a-zA-Z_][a-zA-Z_0-9]*', x)
+        searchres = re.search('(?<=module )[a-zA-Z_][a-zA-Z_0-9]*', modstr)
         self.moduleNameStr = searchres.group(0)
 
         # remove module + moduleName
-        x = re.sub(r'module [a-zA-Z_][a-zA-Z_0-9]*[ ]*', '', x)
+        modstr = re.sub(r'module [a-zA-Z_][a-zA-Z_0-9]*[ ]*', '', modstr)
 
         # search and remove optional header import
-        self.importList=[]
-        searchres = re.search('(?<=import )[0-9a-zA-Z_,:\*]*', x)
-        if searchres != None:
-            self.importList=re.split(',',searchres.group(0))
-            x = re.sub(r'import [0-9a-zA-Z_,:\*]*;','',x)
+        self.import_list = []
+        searchres = re.search('(?<=import )[0-9a-zA-Z_,:\\*]*', modstr)
+        if searchres is not None:
+            self.import_list = re.split(',', searchres.group(0))
+            modstr = re.sub(r'import [0-9a-zA-Z_,:\*]*;', '', modstr)
 
         # Check if there is parameters
-        if x[0] == "#":
+        if modstr[0] == "#":
             # remove pound
-            x = re.sub(r'#[ ]*', '', x)
-            (self.parametersStr, x) = self.parseBlock(x)
+            modstr = re.sub(r'#[ ]*', '', modstr)
+            self.parameters_str, modstr = self.parse_block(modstr)
 
         else:
-            self.parametersStr = ''
+            self.parameters_str = ''
 
         # Retreive ports list
-        (self.portsStr, x) = self.parseBlock(x)
+        self.ports_str, modstr = self.parse_block(modstr)
 
         # Check again if there is parameters
-        if x[0] == "#" and self.parametersStr != '':
+        if modstr[0] == "#" and self.parameters_str != '':
             # remove pound
-            x = re.sub(r'#[ ]*', '', x)
-            (self.parametersStr, x) = self.parseBlock(x)
+            modstr = re.sub(r'#[ ]*', '', modstr)
+            (self.parameters_str, modstr) = self.parse_block(modstr)
 
-        self.parametersList = self.parseParametersList()
-        self.portsList = self.parsePortsList()
+        self.parameters_list = self.parse_parameters_list()
+        self.ports_list = self.parse_ports_list()
 
-    def getModuleName(self):
+    def get_module_name(self):
         """Returns the module name.
         """
         return self.moduleNameStr
 
-    def getParametersList(self):
+    def get_parameters_list(self):
         """Returns the parsed parameters list.
         """
-        return self.parametersList
+        return self.parameters_list
 
-    def getPortsList(self):
+    def get_ports_list(self):
         """Returns the parsed ports list.
         """
-        return self.portsList
+        return self.ports_list
 
-    def getImportList(self):
+    def get_import_list(self):
         """Returns the parsed import package list.
         """
-        return self.importList
-
-
-def main():
-    from test import teststrings
-    x = Parser(teststrings[3])
-
-    print(x.getModuleName())
-    for p in x.getImportList():
-        print(p)
-    for p in x.getParametersList():
-        print(p)
-    for p in x.getPortsList():
-        print(p)
-
-if __name__ == "__main__":
-    main()
+        return self.import_list

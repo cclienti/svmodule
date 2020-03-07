@@ -98,7 +98,6 @@ class TestPastAsInstance(unittest.TestCase):
         self.assertEqual(stores, moddict2.stores())
 
 
-
 TEST_MODULE_0_REF = {
     'name': 'alu_dsp',
     'import': [],

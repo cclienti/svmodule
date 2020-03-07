@@ -47,4 +47,4 @@ class InitLatch(PrinterBase):
 
                 strval += ";\n"
 
-        return vertical_align_string(strval, align_char = '<=', nbspaces = 0)
+        return vertical_align_string(strval, align_char='<=', nbspaces=0)

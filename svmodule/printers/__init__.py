@@ -20,6 +20,7 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 
 # Load printers
+# flake8: noqa
 
 from .printerbase import PrinterBase
 from .doctable import DocTable

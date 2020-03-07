@@ -28,7 +28,7 @@ class Module(PrinterBase):
     constructor.
     """
 
-    def getImportPackages(self):
+    def get_import_packages(self):
         """
         Returns a string with the list of package to import within
         the module decalration.
@@ -53,7 +53,7 @@ class Module(PrinterBase):
 
         return strval
 
-    def getParameters(self):
+    def get_parameters(self):
         """Returns a string with the list of parameters to be used in
         a module declaration. It will return an empty string if there
         is no parameters in the module.
@@ -69,7 +69,8 @@ class Module(PrinterBase):
             for i in range(nbparams):
                 p = params[i]
 
-                if p['type'] == '' and p['packed'] == '' and p['unpacked'] == '' and p['value'] == '': continue
+                if p['type'] == '' and p['packed'] == '' and p['unpacked'] == '' and p['value'] == '':
+                    continue
 
                 strval += idt
                 strval += 'parameter'
@@ -98,7 +99,7 @@ class Module(PrinterBase):
 
         return strval
 
-    def getPorts(self):
+    def get_ports(self):
         """Returns a string with the list of ports to be used in a
         module declaration, if list is empty, it will return "();".
        """
@@ -136,17 +137,17 @@ class Module(PrinterBase):
         strval = 'module ' + modname + '\n'
 
         # Insert import of packages
-        pkgs = self.getImportPackages()
+        pkgs = self.get_import_packages()
         if pkgs != '':
             strval += pkgs + '\n'
 
         # Insert parameters
-        params = self.getParameters()
+        params = self.get_parameters()
         if params != '':
             strval += params + '\n'
 
         # Insert ports
-        strval += self.getPorts()
+        strval += self.get_ports()
         strval += '\n'
 
         return strval

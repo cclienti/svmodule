@@ -18,5 +18,6 @@
 # along with svmodule.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Copyright (C) 2013-2019 Christophe Clienti
+"""SVModule init."""
 
 __version__ = 'v1.1.2'

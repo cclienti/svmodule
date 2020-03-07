@@ -1,6 +1,6 @@
 PROJECT_DIR    ?= svmodule
 TESTS_DIR      ?= tests
-PYLINT_SCORE   ?= 9.5
+PYLINT_SCORE   ?= 8.9
 
 
 flake8: venv3

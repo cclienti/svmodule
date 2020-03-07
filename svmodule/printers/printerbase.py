@@ -20,7 +20,7 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 
 
-class PrinterBase(object):
-    def __init__(self, parsedModule, indent_size = 3):
-        self.pmod = parsedModule
+class PrinterBase:
+    def __init__(self, parsed_module, indent_size=3):
+        self.pmod = parsed_module
         self.isize = indent_size

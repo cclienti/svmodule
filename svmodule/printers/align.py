@@ -62,30 +62,3 @@ def vertical_align_string(strval, separator='\n', align_char='(', nbspaces=1):
         aligned += '\n' + align_char.join(row)
 
     return aligned
-
-
-def main():
-    strtest = """      .clk(clk),
-      .enable(enable)(),
-      .is_signed(is_signed)(),
-      .enacc(enacc),
-      .sub_nadd(sub_nadd),
-      .selacc(selacc),
-      .resetrs0(resetrs0),
-      .rs0(rs0),
-      .rs1(rs1),
-      .imm(imm),
-      .mulmux(mulmux),
-      .selop0(selop0),
-      .selop1(selop1),
-      .selshift(selshift),
-      .cmode(cmode),
-      .opcode1(opcode1),
-      .opcode2(opcode2),
-      .out_en(out_en),
-      .out(out)"""
-
-    print(vertical_align_string(strtest, align_char='(', nbspaces=1))
-
-if __name__ == "__main__":
-    main()

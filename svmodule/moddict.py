@@ -18,57 +18,59 @@
 # along with svmodule.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Copyright (C) 2013-2019 Christophe Clienti
+"""SVModule [System]Verilog Module Dictionary."""
 
 from .parser import Parser
 
 
-class ModDict(object):
+class ModDict:
+    """Module dictionary that contains parsed elements."""
 
     def __init__(self):
-        self.parsedModule = {}
+        self.parsed_module = {}
 
     def parse(self, str_to_parse):
         """Parse the str_to_parse string and fill an instance variable dict
-        'parsedModule' with module name, list of parameters and list
+        'parsed_module' with module name, list of parameters and list
         of ports.
 
         """
         parser = Parser(str_to_parse)
-        self.parsedModule['name'] = parser.getModuleName()
-        self.parsedModule['import'] = parser.getImportList()
-        self.parsedModule['ports'] = parser.getPortsList()
-        self.parsedModule['parameters'] = parser.getParametersList()
+        self.parsed_module['name'] = parser.get_module_name()
+        self.parsed_module['import'] = parser.get_import_list()
+        self.parsed_module['ports'] = parser.get_ports_list()
+        self.parsed_module['parameters'] = parser.get_parameters_list()
 
     def loads(self, strval):
         """Gets instance variables from a string.
         """
 
-        self.parsedModule = eval(strval)
+        self.parsed_module = eval(strval)
 
     def stores(self):
         """Returns a string filled with instance variables."""
-        return str(self.parsedModule)
+        return str(self.parsed_module)
 
     def load(self, filename):
         """Load from file the values of instance variable."""
 
-        f = open(filename, 'r')
-        self.loads(f.read())
-        f.close()
+        fdesc = open(filename, 'r')
+        self.loads(fdesc.read())
+        fdesc.close()
 
     def store(self, filename):
         """Store to file the values of instance variable."""
 
-        f = open(filename, 'w')
-        f.write(self.stores())
-        f.close()
+        fdesc = open(filename, 'w')
+        fdesc.write(self.stores())
+        fdesc.close()
 
     def reverse(self):
         """Reverse Inputs and Outputs directions in ports.
         """
 
-        for i in range(len(self.parsedModule['ports'])):
-            port = self.parsedModule['ports'][i]
+        for i in range(len(self.parsed_module['ports'])):
+            port = self.parsed_module['ports'][i]
 
             if port['direction'] == 'input':
                 port['direction'] = 'output'
@@ -76,4 +78,4 @@ class ModDict(object):
             elif port['direction'] == 'output':
                 port['direction'] = 'input'
 
-            self.parsedModule['ports'][i] = port
+            self.parsed_module['ports'][i] = port

@@ -36,12 +36,12 @@ class DocTable(PrinterBase):
 
         maxstr = len(max(column, key=len)) + 1
 
-        l = []
+        line = []
         for strval in column:
             strval += ' ' * (maxstr - len(strval))
-            l.append(strval)
+            line.append(strval)
 
-        return (maxstr, l)
+        return (maxstr, line)
 
     def getparameters(self):
         if not self.pmod['parameters']:

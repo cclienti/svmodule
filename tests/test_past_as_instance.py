@@ -113,7 +113,7 @@ TEST_MODULE_0_REF = (
     .out_en    (out_en),
     .out       (out)
   );
-""")
+""")  # noqa:E122
 
 
 TEST_MODULE_1_REF = (
@@ -139,7 +139,7 @@ TEST_MODULE_1_REF = (
     .m_simple_array  (m_simple_array),
     .m_simple_array3 (m_simple_array3)
   );
-""")
+""")  # noqa:E122
 
 
 TEST_MODULE_2_REF = (
@@ -161,7 +161,7 @@ TEST_MODULE_2_REF = (
     .oitf          (oitf),
     .outsig3       (outsig3)
   );
-""")
+""")  # noqa:E122
 
 
 TEST_MODULE_3_REF = (
@@ -175,7 +175,7 @@ TEST_MODULE_3_REF = (
     .oitf          (oitf),
     .outsig3       (outsig3)
   );
-""")
+""")  # noqa:E122
 
 
 TEST_MODULE_4_REF = (
@@ -189,7 +189,7 @@ TEST_MODULE_4_REF = (
     .oitf          (oitf),
     .outsig3       (outsig3)
   );
-""")
+""")  # noqa:E122
 
 
 if __name__ == '__main__':

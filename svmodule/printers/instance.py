@@ -27,7 +27,7 @@ class Instance(PrinterBase):
     """Returns the instance of the module.
     """
 
-    def getParameters(self):
+    def get_parameters(self):
         """Returns a string with the list of parameters used within a
         module instance. If there is no parameters, it will return an
         empty string.
@@ -54,7 +54,7 @@ class Instance(PrinterBase):
 
         return strval
 
-    def getPorts(self):
+    def get_ports(self):
         """Returns a string with the list of ports to be used in a
         module instance. If there is no ports, it will return only
         "();".
@@ -89,7 +89,7 @@ class Instance(PrinterBase):
         strval = idt + modname
 
         # Insert parameters
-        params = self.getParameters()
+        params = self.get_parameters()
         if params != '':
             strval += '\n' + params + '\n' + idt
         else:
@@ -99,7 +99,7 @@ class Instance(PrinterBase):
         strval += modname + '_inst\n'
 
         # Insert ports
-        strval += self.getPorts()
+        strval += self.get_ports()
         strval += '\n'
 
         return strval

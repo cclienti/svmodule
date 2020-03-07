@@ -19,12 +19,10 @@
 #
 # Copyright (C) 2013-2019 Christophe Clienti
 
-from .moddict import ModDict
-
 from .printers import PrinterBase
 
 
-class Printer(object):
+class Printer:
     """Base printer class, it aims to be inherited to implement specific
     printers. See module printers.
     """
@@ -38,6 +36,6 @@ class Printer(object):
 
         for cls in PrinterBase.__subclasses__():
             if cls.__name__ == key:
-                return cls(self.moddict.parsedModule, self.isize).getstr()
+                return cls(self.moddict.parsed_module, self.isize).getstr()
 
         return 'PrinterNotFound'
