@@ -64,9 +64,9 @@ class ParserHelper:
 
         # iterates over lval to get each range
         strarrays = ''
-        for l in lval:
-            if ParserHelper.is_range(l):
-                strarrays += l
+        for val in lval:
+            if ParserHelper.is_range(val):
+                strarrays += val
 
         return strarrays
 
