@@ -155,7 +155,7 @@ If your editor supports natively python3 or if you want to use svmodule
 in your own project, you can just import svmodule and use directly the
 API without temporary files
 
-```
+```python
     """Example of svmodule API use."""
     from svmodule.printer import Printer
     from svmodule.moddict import ModDict
