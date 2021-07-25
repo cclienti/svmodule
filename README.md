@@ -60,39 +60,41 @@ internal representation in a temporary file (the default file is
 3\. Try the \'-h\' option to see the full list of *paste-as* functions:
 
 ```
-    usage: svmodp [-h] [-z INDENT_SIZE] [-d filename]
-                  [-c filename | -r | -m | -g | -i | -b | -p | -s | -o | -l | -w | -t | -y | -x]
+usage: svmodp [-h] [-d filename] [-z INDENT_SIZE | -n] [-c filename | -r | -m | -g | -i | -b | -p | -s | -o | -l | -w | -t | -v]
 
-    Smart Copy & Paste of [System]Verilog files
+Smart Copy & Paste of [System]Verilog files
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -z INDENT_SIZE, --indent-size INDENT_SIZE
-                            Paste as PandaXML (default: 4)
-      -d filename, --dump filename
-                            parsed module file (default: /tmp/svmodule-dump)
-      -c filename, --copy filename
-                            (System)Verilog file (default: None)
-      -r, --reverse         Reverse inputs and outputs (default: False)
-      -m, --paste-as-module
-                            Paste as module (default: False)
-      -g, --paste-as-packages
-                            Paste as packages (default: False)
-      -i, --paste-as-instance
-                            Paste as instance (default: False)
-      -b, --paste-as-clockingblock
-                            Paste as clocking block (default: False)
-      -p, --paste-as-parameters
-                            Paste as parameters (default: False)
-      -s, --paste-as-signals
-                            Paste as signals (default: False)
-      -o, --paste-as-logic  Paste as logic (default: False)
-      -l, --paste-as-init-latch
-                            Paste as latch initialization (default: False)
-      -w, --paste-as-init-wire
-                            Paste as wire initialization (default: False)
-      -t, --paste-as-doc-table
-                            Paste as Sphinx Table (default: False)
+optional arguments:
+  -h, --help            show this help message and exit
+  -d filename, --dump filename
+                        parsed module file (default: /tmp/svmodule-dump)
+  -z INDENT_SIZE, --indent-size INDENT_SIZE
+                        set the indentation size (default: 4)
+  -n, --indent-use-tab  use tab instead of tab for indentation (default: False)
+  -c filename, --copy filename
+                        (System)Verilog file (default: None)
+  -r, --reverse         Reverse inputs and outputs (default: False)
+  -m, --paste-as-module
+                        Paste as module (default: False)
+  -g, --paste-as-packages
+                        Paste as packages (default: False)
+  -i, --paste-as-instance
+                        Paste as instance (default: False)
+  -b, --paste-as-clockingblock
+                        Paste as clocking block (default: False)
+  -p, --paste-as-parameters
+                        Paste as parameters (default: False)
+  -s, --paste-as-signals
+                        Paste as signals (default: False)
+  -o, --paste-as-logic  Paste as logic (default: False)
+  -l, --paste-as-init-latch
+                        Paste as latch initialization (default: False)
+  -w, --paste-as-init-wire
+                        Paste as wire initialization (default: False)
+  -t, --paste-as-doc-table
+                        Paste as Sphinx Table (default: False)
+  -v, --paste-as-wavedisp
+                        Paste as Wavedisp generator (default: False)
 ```
 
 ## Integration with editors

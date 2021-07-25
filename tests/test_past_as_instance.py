@@ -81,6 +81,16 @@ class TestPastAsInstance(unittest.TestCase):
 
         self.assertEqual('\n' + instance, TEST_MODULE_4_REF)
 
+    def test_past_as_instance_4_instance_name(self):
+        """Test past as instance with TEST_MODULE_4"""
+        moddict = ModDict()
+        moddict.parse(inputs.TEST_MODULE_4)
+
+        printer = Printer(moddict, indent_size=2, instance_name='new_name')
+        instance = printer['Instance']
+
+        self.assertEqual('\n' + instance, TEST_MODULE_4_INSTANCE_NAME_REF)
+
 
 TEST_MODULE_0_REF = (
 """
@@ -181,6 +191,20 @@ TEST_MODULE_3_REF = (
 TEST_MODULE_4_REF = (
 """
   testmod3 testmod3_inst
+  (
+    .srst          (srst),
+    .clk           (clk),
+    .another_srst  (another_srst),
+    .another_clock (another_clock),
+    .oitf          (oitf),
+    .outsig3       (outsig3)
+  );
+""")  # noqa:E122
+
+
+TEST_MODULE_4_INSTANCE_NAME_REF = (
+"""
+  testmod3 new_name
   (
     .srst          (srst),
     .clk           (clk),

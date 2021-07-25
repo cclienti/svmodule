@@ -27,15 +27,18 @@ class Printer:
     printers. See module printers.
     """
 
-    def __init__(self, moddict, indent_size=3):
+    def __init__(self, moddict, indent_size=3, **properties):
         self.moddict = moddict
         self.isize = indent_size
+        self.properties = properties
 
     def __getitem__(self, key):
         """Explore PrinterBase subclasses."""
 
         for cls in PrinterBase.__subclasses__():
             if cls.__name__ == key:
-                return cls(self.moddict.parsed_module, self.isize).getstr()
+                return cls(self.moddict.parsed_module,
+                           self.isize,
+                           **self.properties).getstr()
 
         return 'PrinterNotFound'

@@ -72,10 +72,10 @@ def paste_as_packages(dump_file, indent_size):
     print(prn['ImportList'])
 
 
-def paste_as_instance(dump_file, indent_size):
+def paste_as_instance(dump_file, indent_size, **properties):
     """Paste as a SystemVerilog instance."""
 
-    prn = Printer(load_moddict(dump_file), indent_size)
+    prn = Printer(load_moddict(dump_file), indent_size, **properties)
     print(prn['Instance'])
 
 
@@ -172,6 +172,9 @@ def main():
     group.add_argument('-i', '--paste-as-instance', action='store_true', default=False,
                        help='Paste as instance')
 
+    group.add_argument('-I', '--paste-as-instance-with-name', nargs=1, type=str,
+                       help='Paste as instance and set instance name')
+
     group.add_argument('-b', '--paste-as-clockingblock', action='store_true', default=False,
                        help='Paste as clocking block')
 
@@ -212,6 +215,10 @@ def main():
 
     elif args.paste_as_instance is True:
         paste_as_instance(args.dump, args.indent_size)
+
+    elif args.paste_as_instance_with_name is True:
+        paste_as_instance(args.dump, args.indent_size,
+                          instance_name=args.paste_as_instance_with_name)
 
     elif args.paste_as_clockingblock is True:
         paste_as_clockingblock(args.dump, args.indent_size)
