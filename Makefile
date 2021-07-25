@@ -42,7 +42,8 @@ venv3:
 	python3 -m venv venv3
 	source venv3/bin/activate && pip install --upgrade pip
 	source venv3/bin/activate && \
-	    pip install wheel flake8 pylint twine pytest pytest-cov pylint-fail-under
+	    pip install wheel flake8 pylint twine pytest pytest-cov pylint-fail-under \
+	    python-lsp-server
 
 clean:
 	rm -rf test_*.dot test_*.tcl tests.xml coverage.xml htmlcov
