@@ -21,6 +21,7 @@
 
 
 class PrinterBase:
-    def __init__(self, parsed_module, indent_size=3):
+    def __init__(self, parsed_module, indent_size=3, **properties):
         self.pmod = parsed_module
         self.isize = indent_size
+        self.properties = properties

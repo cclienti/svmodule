@@ -96,7 +96,9 @@ class Instance(PrinterBase):
             strval += ' '
 
         # Insert strval name
-        strval += modname + '_inst\n'
+        strval += self.properties.get('instance_name',
+                                      modname + '_inst')
+        strval += '\n'
 
         # Insert ports
         strval += self.get_ports()
