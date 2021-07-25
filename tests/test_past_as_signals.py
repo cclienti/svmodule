@@ -33,6 +33,7 @@ class TestPastAsSignals(unittest.TestCase):
 
     def test_past_as_signals_0(self):
         """Test past as signals with TEST_MODULE_0"""
+        self.maxDiff = None
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_0)
 
@@ -92,29 +93,29 @@ TEST_MODULE_0_REF = ("""
   reg sub_nadd;
   reg selacc;
   reg resetrs0;
-  reg [31:0] rs0 [31:0];
-  reg [31:0] rs1 [31:0];
-  reg [31:0] imm [31:0];
+  reg [31:0] rs0;
+  reg [31:0] rs1;
+  reg [31:0] imm;
   reg mulmux;
   reg selop0;
   reg selop1;
-  reg [1:0] selshift [1:0];
-  reg [1:0] cmode [1:0];
-  reg [2:0] opcode1 [2:0];
-  reg [2:0] opcode2 [2:0];
+  reg [1:0] selshift;
+  reg [1:0] cmode;
+  reg [2:0] opcode1;
+  reg [2:0] opcode2;
   wire out_en;
-  wire [31:0] out [31:0];
+  wire [31:0] out;
 """)
 
 
 TEST_MODULE_1_REF = ("""
   reg reset_n;
   reg clock;
-  reg [$clog2(GEN3_WIDTH+1)-1:0] test [$clog2(GEN3_WIDTH+1)-1:0];
+  reg [$clog2(GEN3_WIDTH+1)-1:0] test;
   reg clock2;
-  wire [28:0][$clog2(GEN1):0] m_big_array [28:0][$clog2(GEN1):0][1:0][2:0];
-  wire [15:0] m_simple_array [15:0];
-  wire [15:0] m_simple_array3 [15:0];
+  wire [28:0][$clog2(GEN1):0] m_big_array [1:0][2:0];
+  wire [15:0] m_simple_array;
+  wire [15:0] m_simple_array3;
 """)
 
 
@@ -122,11 +123,11 @@ TEST_MODULE_2_REF = ("""
   reg srst;
   reg clk;
   reg insig1;
-  reg [31:0] insig2 [31:0];
-  reg [10:0] insig3 [10:0];
-  reg [7:0] insig4 [7:0];
-  wire [47:0] outsig1 [47:0];
-  wire [15:0] outsig2 [15:0];
+  reg [31:0] insig2;
+  reg [10:0] insig3;
+  reg [7:0] insig4;
+  wire [47:0] outsig1;
+  wire [15:0] outsig2;
   reg another_srst;
   reg another_clock;
   wire outsig3;
@@ -138,7 +139,7 @@ TEST_MODULE_3_REF = ("""
   reg clk;
   reg another_srst;
   reg another_clock;
-  wire outsig3[1:0];
+  wire outsig3 [1:0];
 """)
 
 
@@ -147,7 +148,7 @@ TEST_MODULE_4_REF = ("""
   reg clk;
   reg another_srst;
   reg another_clock;
-  wire outsig3[1:0];
+  wire outsig3 [1:0];
 """)
 
 

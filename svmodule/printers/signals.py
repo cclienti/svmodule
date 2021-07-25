@@ -31,39 +31,25 @@ class Signals(PrinterBase):
         idt = ' ' * self.isize
 
         strval = ''
-
         for p in self.pmod['ports']:
             if p['interface'] is True:
                 continue
 
             strval += idt
 
-            # if p['type'] == '':
-            #     if p['direction'] == 'output':
-            #         strval += 'wire'
-            #     else:
-            #         strval += 'reg'
-            # elif p['type'] == 'wire':
-            #     strval += 'reg'
-            # elif p['type'] == 'reg':
-            #     strval += 'wire'
-            # else:
-            #     strval += p['type']
-
             if p['direction'] == 'output':
                 strval += 'wire'
             else:
                 strval += 'reg'
 
-            if p['packed'] != '':
+            if p['packed']:
                 strval += ' ' + p['packed']
 
             strval += ' ' + p['name']
 
-            if p['packed'] != '':
-                strval += ' ' + p['packed']
+            if p['unpacked']:
+                strval += ' ' + p['unpacked']
 
-            strval += '' + p['unpacked']
             strval += ';\n'
 
         return strval
