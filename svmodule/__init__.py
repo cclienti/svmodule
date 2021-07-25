@@ -20,4 +20,4 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 """SVModule init."""
 
-__version__ = 'v1.1.2'
+__version__ = 'v1.1.3'
