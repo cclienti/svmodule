@@ -86,7 +86,11 @@ optional arguments:
                         Paste as parameters (default: False)
   -s, --paste-as-signals
                         Paste as signals (default: False)
-  -o, --paste-as-logic  Paste as logic (default: False)
+  -o [type], --paste-as-logic [type]
+                        Paste as logic declarations. Optionally specify the
+                        net type (logic, wire, ...) to use for ports with no
+                        explicit type. Defaults to "logic" when the flag is
+                        given without an argument. (default: None)
   -l, --paste-as-init-latch
                         Paste as latch initialization (default: False)
   -w, --paste-as-init-wire
@@ -174,7 +178,11 @@ API without temporary files
     print(p['ClockingBlock'])   # Past as clocking block
     print(p['Parameters'])      # Past as parameters
     print(p['Signals'])         # Past as signals
-    print(p['Logic'])           # Past as logic
+    print(p['Logic'])           # Paste as logic (explicit types only)
+    p2 = Printer(m, default_type='logic')
+    print(p2['Logic'])          # Paste as logic, untyped ports fallback to 'logic'
+    p3 = Printer(m, default_type='wire')
+    print(p3['Logic'])          # Paste as logic, untyped ports fallback to 'wire'
     print(p['InitLatch'])       # Past as init latch
     print(p['InitWire'])        # Past as init wire
     print(p['DocTable'])        # Past as doc table

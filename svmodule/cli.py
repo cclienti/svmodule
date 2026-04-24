@@ -100,10 +100,10 @@ def paste_as_signals(dump_file, indent_size):
     print(prn['Signals'])
 
 
-def paste_as_logic(dump_file, indent_size):
+def paste_as_logic(dump_file, indent_size, default_type=None):
     """Paste as SystemVerilog logic."""
 
-    prn = Printer(load_moddict(dump_file), indent_size)
+    prn = Printer(load_moddict(dump_file), indent_size, default_type=default_type)
     print(prn['Logic'])
 
 
@@ -184,8 +184,11 @@ def main():
     group.add_argument('-s', '--paste-as-signals', action='store_true', default=False,
                        help='Paste as signals')
 
-    group.add_argument('-o', '--paste-as-logic', action='store_true', default=False,
-                       help='Paste as logic')
+    group.add_argument('-o', '--paste-as-logic', nargs='?', const='logic', default=None,
+                       metavar='type',
+                       help='Paste as logic declarations. Optionally specify the net type '
+                            '(logic, wire, ...) to use for ports with no explicit type. '
+                            'Defaults to "logic" when the flag is given without an argument.')
 
     group.add_argument('-l', '--paste-as-init-latch', action='store_true', default=False,
                        help='Paste as latch initialization')
@@ -229,8 +232,8 @@ def main():
     elif args.paste_as_signals is True:
         paste_as_signals(args.dump, args.indent_size)
 
-    elif args.paste_as_logic is True:
-        paste_as_logic(args.dump, args.indent_size)
+    elif args.paste_as_logic is not None:
+        paste_as_logic(args.dump, args.indent_size, default_type=args.paste_as_logic)
 
     elif args.paste_as_init_latch is True:
         paste_as_init_latch(args.dump, args.indent_size)
@@ -249,3 +252,6 @@ def main():
         sys.exit(1)
 
     sys.exit(0)
+
+if __name__ == '__main__':
+    main()

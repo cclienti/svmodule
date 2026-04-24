@@ -82,6 +82,48 @@ class TestPastAsLogic(unittest.TestCase):
         self.assertEqual('\n' + logic, TEST_MODULE_4_REF)
 
 
+
+    def test_past_as_logic_no_type_default_none(self):
+        """Ports with no explicit type are skipped when default_type is None (backward compat)."""
+        moddict = ModDict()
+        moddict.parse(inputs.TEST_MODULE_6)
+
+        printer = Printer(moddict, indent_size=2)
+        logic = printer['Logic']
+
+        self.assertEqual(logic, '')
+
+    def test_past_as_logic_no_type_default_logic(self):
+        """Ports with no explicit type fall back to 'logic' when default_type='logic'."""
+        moddict = ModDict()
+        moddict.parse(inputs.TEST_MODULE_6)
+
+        printer = Printer(moddict, indent_size=2, default_type='logic')
+        logic = printer['Logic']
+
+        self.assertEqual('\n' + logic, TEST_MODULE_6_LOGIC_REF)
+
+    def test_past_as_logic_no_type_default_wire(self):
+        """Ports with no explicit type fall back to 'wire' when default_type='wire'."""
+        moddict = ModDict()
+        moddict.parse(inputs.TEST_MODULE_6)
+
+        printer = Printer(moddict, indent_size=2, default_type='wire')
+        logic = printer['Logic']
+
+        self.assertEqual('\n' + logic, TEST_MODULE_6_WIRE_REF)
+
+    def test_past_as_logic_explicit_type_takes_priority(self):
+        """Explicit port types are preserved even when default_type is set."""
+        moddict = ModDict()
+        moddict.parse(inputs.TEST_MODULE_1)
+
+        printer = Printer(moddict, indent_size=2, default_type='wire')
+        logic = printer['Logic']
+
+        # TEST_MODULE_1 has explicit 'logic' and 'pkg::typedef' types — they must not
+        # be overridden by default_type='wire'
+        self.assertEqual('\n' + logic, TEST_MODULE_1_REF)
 TEST_MODULE_0_REF = ("""
 """)
 
@@ -137,5 +179,24 @@ TEST_MODULE_4_REF = ("""
 """)
 
 
+
+TEST_MODULE_6_LOGIC_REF = ("""
+  logic  clk;
+  logic  reset_n;
+  logic  other_out;
+  logic [DIN_WIDTH-1:0] binin;
+  logic [DOUT_WIDTH-1:0] thermout;
+""")
+
+
+TEST_MODULE_6_WIRE_REF = ("""
+  wire  clk;
+  wire  reset_n;
+  wire  other_out;
+  wire [DIN_WIDTH-1:0] binin;
+  wire [DOUT_WIDTH-1:0] thermout;
+""")
+
 if __name__ == '__main__':
     unittest.main()
+

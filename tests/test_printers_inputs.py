@@ -139,3 +139,19 @@ TEST_MODULE_5 = """module alu_dsp  (input         clk, enable, is_signed,
     output        out_en,
     output [31:0] out);
 """
+
+
+TEST_MODULE_6 = """module bin2therm #(
+  parameter REG_OUTPUT = 0,
+  parameter DIN_WIDTH  = 2,
+  parameter DOUT_WIDTH = (1<<DIN_WIDTH)-1
+)
+  (
+    input                     clk,
+    input                     reset_n,
+    output                    other_out,
+    input  [DIN_WIDTH-1:0]    binin,
+    output [DOUT_WIDTH-1:0]   thermout
+  );
+endmodule
+"""

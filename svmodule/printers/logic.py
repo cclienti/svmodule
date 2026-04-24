@@ -24,19 +24,27 @@ from .printerbase import PrinterBase
 
 class Logic(PrinterBase):
     """Returns ports of module as declaration of signals.
+
+    Properties:
+        default_type (str): net type to use when a port has no explicit type
+                            declared (e.g. 'logic', 'wire'). When None (the
+                            default) ports with no type are skipped, which
+                            preserves the original behaviour.
     """
 
     def getstr(self):
 
         idt = ' ' * self.isize
+        default_type = self.properties.get('default_type', None)
         strval = ''
 
         for p in self.pmod['ports']:
-            if p['type'] == '':
+            port_type = p['type'] if p['type'] != '' else default_type
+            if port_type is None:
                 continue
 
             strval += idt
-            strval += p['type'] + ' ' + p['packed']
+            strval += port_type + ' ' + p['packed']
             strval += ' ' + p['name'] + p['unpacked']
 
             # In case of interface, we must add a '()'
