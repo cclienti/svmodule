@@ -6,14 +6,14 @@ ruff: venv3
 	source venv3/bin/activate && ruff check $(PROJECT_DIR) $(TESTS_DIR)
 
 ruff-fix: venv3
-	source venv3/bin/activate && ruff check --fix $(PROJECT_DIR) $(TESTS_DIR)
+	source venv3/bin/activate && ruff check --fix --unsafe-fixes $(PROJECT_DIR) $(TESTS_DIR)
 
 pytest: venv3
 	source venv3/bin/activate && $@
 	sed -i 's/></>\n</g' tests.xml
 
-upload-pypi: install-pypy-test
-	source venv3/bin/activate && twine upload -u $$PYPI_PROD_USER -p $$PYPI_PROD_PASSWORD dist/*
+upload-pypi: dist-check
+	source venv3/bin/activate && twine upload -u __token__ -p $$PYPI_TOKEN dist/*
 	touch $@
 
 install-pypy-test: upload-pypi-test
@@ -25,7 +25,7 @@ install-pypy-test: upload-pypi-test
 
 upload-pypi-test: dist-check
 	source venv3/bin/activate && \
-	    twine upload --verbose -u $$PYPI_TEST_USER -p $$PYPI_TEST_PASSWORD \
+	    twine upload --verbose -u __token__ -p $$PYPI_TEST_TOKEN \
 	    --repository-url https://test.pypi.org/legacy/ dist/*
 	touch $@
 
