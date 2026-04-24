@@ -19,6 +19,7 @@
 
 """Test AST classes."""
 
+import json
 import os
 import unittest
 
@@ -36,7 +37,7 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_0)
         stores = moddict.stores()
 
-        self.assertEqual(eval(stores), TEST_MODULE_0_REF)
+        self.assertEqual(json.loads(stores), TEST_MODULE_0_REF)
 
     def test_parser_1(self):
         """Test parser with TEST_MODULE_1"""
@@ -44,7 +45,7 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_1)
         stores = moddict.stores()
 
-        self.assertEqual(eval(stores), TEST_MODULE_1_REF)
+        self.assertEqual(json.loads(stores), TEST_MODULE_1_REF)
 
     def test_parser_2(self):
         """Test parser with TEST_MODULE_2"""
@@ -52,7 +53,7 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_2)
         stores = moddict.stores()
 
-        self.assertEqual(eval(stores), TEST_MODULE_2_REF)
+        self.assertEqual(json.loads(stores), TEST_MODULE_2_REF)
 
     def test_parser_3(self):
         """Test parser with TEST_MODULE_3"""
@@ -60,7 +61,7 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_3)
         stores = moddict.stores()
         print(stores)
-        self.assertEqual(eval(stores), TEST_MODULE_3_REF)
+        self.assertEqual(json.loads(stores), TEST_MODULE_3_REF)
 
     def test_parser_4(self):
         """Test parser with TEST_MODULE_4"""
@@ -68,7 +69,7 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_4)
         stores = moddict.stores()
 
-        self.assertEqual(eval(stores), TEST_MODULE_4_REF)
+        self.assertEqual(json.loads(stores), TEST_MODULE_4_REF)
 
     def test_load_store(self):
         """Test parser 'load' and 'store' methods"""
@@ -81,7 +82,7 @@ class TestPastAsInstance(unittest.TestCase):
         moddict2 = ModDict()
         moddict2.load(filename)
 
-        self.assertEqual(eval(moddict2.stores()), TEST_MODULE_0_REF)
+        self.assertEqual(json.loads(moddict2.stores()), TEST_MODULE_0_REF)
 
         os.remove(filename)
 

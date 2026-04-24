@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-#
 # This file is part of svmodule. See the root README for further
 # informations.
 #
@@ -19,6 +17,8 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 """SVModule [System]Verilog Module Dictionary."""
 
+import json
+
 from .parser import Parser
 
 
@@ -28,11 +28,9 @@ class ModDict:
     def __init__(self):
         self.parsed_module = {}
 
-    def parse(self, str_to_parse):
-        """Parse the str_to_parse string and fill an instance variable dict
-        'parsed_module' with module name, list of parameters and list
-        of ports.
-
+    def parse(self, str_to_parse: str) -> None:
+        """Parse str_to_parse and populate parsed_module with name,
+        parameters, ports and import list.
         """
         parser = Parser(str_to_parse)
         self.parsed_module["name"] = parser.get_module_name()
@@ -40,39 +38,29 @@ class ModDict:
         self.parsed_module["ports"] = parser.get_ports_list()
         self.parsed_module["parameters"] = parser.get_parameters_list()
 
-    def loads(self, strval):
-        """Gets instance variables from a string."""
+    def loads(self, strval: str) -> None:
+        """Populate parsed_module from a JSON string."""
+        self.parsed_module = json.loads(strval)
 
-        self.parsed_module = eval(strval)
+    def stores(self) -> str:
+        """Return parsed_module serialised as a JSON string."""
+        return json.dumps(self.parsed_module)
 
-    def stores(self):
-        """Returns a string filled with instance variables."""
-        return str(self.parsed_module)
+    def load(self, filename: str) -> None:
+        """Load parsed_module from a JSON file."""
+        with open(filename, encoding="utf-8") as fdesc:
+            self.loads(fdesc.read())
 
-    def load(self, filename):
-        """Load from file the values of instance variable."""
+    def store(self, filename: str) -> None:
+        """Store parsed_module to a JSON file."""
+        with open(filename, "w", encoding="utf-8") as fdesc:
+            fdesc.write(self.stores())
 
-        fdesc = open(filename)
-        self.loads(fdesc.read())
-        fdesc.close()
-
-    def store(self, filename):
-        """Store to file the values of instance variable."""
-
-        fdesc = open(filename, "w")
-        fdesc.write(self.stores())
-        fdesc.close()
-
-    def reverse(self):
-        """Reverse Inputs and Outputs directions in ports."""
-
-        for i in range(len(self.parsed_module["ports"])):
-            port = self.parsed_module["ports"][i]
-
+    def reverse(self) -> None:
+        """Reverse input/output directions in ports."""
+        for i, port in enumerate(self.parsed_module["ports"]):
             if port["direction"] == "input":
                 port["direction"] = "output"
-
             elif port["direction"] == "output":
                 port["direction"] = "input"
-
             self.parsed_module["ports"][i] = port

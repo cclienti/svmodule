@@ -39,12 +39,14 @@ def copy_module(file_name, dump_file):
     """Open the file 'file_name' and parse it to a temporary file."""
 
     try:
-        file_desc = open(file_name)
-    except OSError:
-        print("cannot open", file_name)
+        with open(file_name, encoding="utf-8") as file_desc:
+            content = file_desc.read()
+    except OSError as exc:
+        print(f"cannot open {file_name}: {exc}")
+        return
 
     moddict = ModDict()
-    moddict.parse(str(file_desc.read()))
+    moddict.parse(content)
     moddict.store(dump_file)
 
 
