@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README.md for further
 # information.
@@ -37,9 +36,9 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_0)
 
         printer = Printer(moddict, indent_size=3)
-        wavedisp = printer['Wavedisp']
+        wavedisp = printer["Wavedisp"]
 
-        self.assertEqual('\n' + wavedisp, TEST_MODULE_0_REF)
+        self.assertEqual("\n" + wavedisp, TEST_MODULE_0_REF)
 
     def test_past_as_wavedisp_1(self):
         """Test past as wavedisp with TEST_MODULE_1"""
@@ -47,9 +46,9 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_1)
 
         printer = Printer(moddict, indent_size=3)
-        wavedisp = printer['Wavedisp']
+        wavedisp = printer["Wavedisp"]
 
-        self.assertEqual('\n' + wavedisp, TEST_MODULE_1_REF)
+        self.assertEqual("\n" + wavedisp, TEST_MODULE_1_REF)
 
     def test_past_as_wavedisp_2(self):
         """Test past as wavedisp with TEST_MODULE_2"""
@@ -57,10 +56,10 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_2)
 
         printer = Printer(moddict, indent_size=3)
-        wavedisp = printer['Wavedisp']
+        wavedisp = printer["Wavedisp"]
 
         print(wavedisp)
-        self.assertEqual('\n' + wavedisp, TEST_MODULE_2_REF)
+        self.assertEqual("\n" + wavedisp, TEST_MODULE_2_REF)
 
     def test_past_as_wavedisp_3(self):
         """Test past as wavedisp with TEST_MODULE_3"""
@@ -68,9 +67,9 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_3)
 
         printer = Printer(moddict, indent_size=3)
-        wavedisp = printer['Wavedisp']
+        wavedisp = printer["Wavedisp"]
 
-        self.assertEqual('\n' + wavedisp, TEST_MODULE_3_REF)
+        self.assertEqual("\n" + wavedisp, TEST_MODULE_3_REF)
 
     def test_past_as_wavedisp_4(self):
         """Test past as wavedisp with TEST_MODULE_4"""
@@ -78,12 +77,12 @@ class TestPastAsWavedisp(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_4)
 
         printer = Printer(moddict, indent_size=3)
-        wavedisp = printer['Wavedisp']
+        wavedisp = printer["Wavedisp"]
 
-        self.assertEqual('\n' + wavedisp, TEST_MODULE_4_REF)
+        self.assertEqual("\n" + wavedisp, TEST_MODULE_4_REF)
 
 
-TEST_MODULE_0_REF = ("""
+TEST_MODULE_0_REF = """
 # -*- python -*-
 # To include in alu_dsp_tb.wave.py:
 \"""Wavedisp file for module alu_dsp.\"""
@@ -137,10 +136,10 @@ def generator():
    inst = testbench.add(Hierarchy('alu_dsp'))
    inst.include('alu_dsp.wave.py')
    return testbench
-""")
+"""
 
 
-TEST_MODULE_1_REF = ("""
+TEST_MODULE_1_REF = """
 # -*- python -*-
 # To include in mymod_tb.wave.py:
 \"""Wavedisp file for module mymod.\"""
@@ -185,10 +184,10 @@ def generator():
    inst = testbench.add(Hierarchy('mymod'))
    inst.include('mymod.wave.py')
    return testbench
-""")
+"""
 
 
-TEST_MODULE_2_REF = ("""
+TEST_MODULE_2_REF = """
 # -*- python -*-
 # To include in testmod_tb.wave.py:
 \"""Wavedisp file for module testmod.\"""
@@ -237,10 +236,10 @@ def generator():
    inst = testbench.add(Hierarchy('testmod'))
    inst.include('testmod.wave.py')
    return testbench
-""")
+"""
 
 
-TEST_MODULE_3_REF = ("""
+TEST_MODULE_3_REF = """
 # -*- python -*-
 # To include in testmod2_tb.wave.py:
 \"""Wavedisp file for module testmod2.\"""
@@ -284,10 +283,10 @@ def generator():
    inst = testbench.add(Hierarchy('testmod2'))
    inst.include('testmod2.wave.py')
    return testbench
-""")
+"""
 
 
-TEST_MODULE_4_REF = ("""
+TEST_MODULE_4_REF = """
 # -*- python -*-
 # To include in testmod3_tb.wave.py:
 \"""Wavedisp file for module testmod3.\"""
@@ -331,8 +330,8 @@ def generator():
    inst = testbench.add(Hierarchy('testmod3'))
    inst.include('testmod3.wave.py')
    return testbench
-""")
+"""
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

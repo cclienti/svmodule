@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README.md for further
 # information.
@@ -37,9 +36,9 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_0)
 
         printer = Printer(moddict, indent_size=2)
-        instance = printer['Instance']
+        instance = printer["Instance"]
 
-        self.assertEqual('\n' + instance, TEST_MODULE_0_REF)
+        self.assertEqual("\n" + instance, TEST_MODULE_0_REF)
 
     def test_past_as_instance_1(self):
         """Test past as instance with TEST_MODULE_1"""
@@ -47,9 +46,9 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_1)
 
         printer = Printer(moddict, indent_size=2)
-        instance = printer['Instance']
+        instance = printer["Instance"]
 
-        self.assertEqual('\n' + instance, TEST_MODULE_1_REF)
+        self.assertEqual("\n" + instance, TEST_MODULE_1_REF)
 
     def test_past_as_instance_2(self):
         """Test past as instance with TEST_MODULE_2"""
@@ -57,9 +56,9 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_2)
 
         printer = Printer(moddict, indent_size=2)
-        instance = printer['Instance']
+        instance = printer["Instance"]
 
-        self.assertEqual('\n' + instance, TEST_MODULE_2_REF)
+        self.assertEqual("\n" + instance, TEST_MODULE_2_REF)
 
     def test_past_as_instance_3(self):
         """Test past as instance with TEST_MODULE_3"""
@@ -67,9 +66,9 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_3)
 
         printer = Printer(moddict, indent_size=2)
-        instance = printer['Instance']
+        instance = printer["Instance"]
 
-        self.assertEqual('\n' + instance, TEST_MODULE_3_REF)
+        self.assertEqual("\n" + instance, TEST_MODULE_3_REF)
 
     def test_past_as_instance_4(self):
         """Test past as instance with TEST_MODULE_4"""
@@ -77,23 +76,22 @@ class TestPastAsInstance(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_4)
 
         printer = Printer(moddict, indent_size=2)
-        instance = printer['Instance']
+        instance = printer["Instance"]
 
-        self.assertEqual('\n' + instance, TEST_MODULE_4_REF)
+        self.assertEqual("\n" + instance, TEST_MODULE_4_REF)
 
     def test_past_as_instance_4_instance_name(self):
         """Test past as instance with TEST_MODULE_4"""
         moddict = ModDict()
         moddict.parse(inputs.TEST_MODULE_4)
 
-        printer = Printer(moddict, indent_size=2, instance_name='new_name')
-        instance = printer['Instance']
+        printer = Printer(moddict, indent_size=2, instance_name="new_name")
+        instance = printer["Instance"]
 
-        self.assertEqual('\n' + instance, TEST_MODULE_4_INSTANCE_NAME_REF)
+        self.assertEqual("\n" + instance, TEST_MODULE_4_INSTANCE_NAME_REF)
 
 
-TEST_MODULE_0_REF = (
-"""
+TEST_MODULE_0_REF = """
   alu_dsp
   #(
     .add_extra_instr  (add_extra_instr),
@@ -123,11 +121,10 @@ TEST_MODULE_0_REF = (
     .out_en    (out_en),
     .out       (out)
   );
-""")  # noqa:E122
+"""  # noqa:E122
 
 
-TEST_MODULE_1_REF = (
-"""
+TEST_MODULE_1_REF = """
   mymod
   #(
     .GEN1          (GEN1),
@@ -149,11 +146,10 @@ TEST_MODULE_1_REF = (
     .m_simple_array  (m_simple_array),
     .m_simple_array3 (m_simple_array3)
   );
-""")  # noqa:E122
+"""  # noqa:E122
 
 
-TEST_MODULE_2_REF = (
-"""
+TEST_MODULE_2_REF = """
   testmod testmod_inst
   (
     .srst          (srst),
@@ -171,11 +167,10 @@ TEST_MODULE_2_REF = (
     .oitf          (oitf),
     .outsig3       (outsig3)
   );
-""")  # noqa:E122
+"""  # noqa:E122
 
 
-TEST_MODULE_3_REF = (
-"""
+TEST_MODULE_3_REF = """
   testmod2 testmod2_inst
   (
     .srst          (srst),
@@ -185,11 +180,10 @@ TEST_MODULE_3_REF = (
     .oitf          (oitf),
     .outsig3       (outsig3)
   );
-""")  # noqa:E122
+"""  # noqa:E122
 
 
-TEST_MODULE_4_REF = (
-"""
+TEST_MODULE_4_REF = """
   testmod3 testmod3_inst
   (
     .srst          (srst),
@@ -199,11 +193,10 @@ TEST_MODULE_4_REF = (
     .oitf          (oitf),
     .outsig3       (outsig3)
   );
-""")  # noqa:E122
+"""  # noqa:E122
 
 
-TEST_MODULE_4_INSTANCE_NAME_REF = (
-"""
+TEST_MODULE_4_INSTANCE_NAME_REF = """
   testmod3 new_name
   (
     .srst          (srst),
@@ -213,8 +206,8 @@ TEST_MODULE_4_INSTANCE_NAME_REF = (
     .oitf          (oitf),
     .outsig3       (outsig3)
   );
-""")  # noqa:E122
+"""  # noqa:E122
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -20,8 +19,8 @@
 
 """Wavedisp printer."""
 
-from .printerbase import PrinterBase
 from .port_range import get_range
+from .printerbase import PrinterBase
 
 
 class Wavedisp(PrinterBase):
@@ -30,59 +29,67 @@ class Wavedisp(PrinterBase):
     def getstr(self):
         """Return the generated string."""
 
-        idt = ' ' * self.isize
+        idt = " " * self.isize
 
-        strval = '\n'.join(['# -*- python -*-',
-                            '# To include in {0}_tb.wave.py:',
-                            '"""Wavedisp file for module {0}."""',
-                            '',
-                            'from wavedisp.ast import Hierarchy',
-                            'from wavedisp.ast import Group',
-                            'from wavedisp.ast import Block',
-                            'from wavedisp.ast import Disp',
-                            'from wavedisp.ast import Divider',
-                            '',
-                            '',
-                            'def generator():',
-                            idt + '"""Generator for module {0}."""',
-                            '']).format(self.pmod['name'])
+        strval = "\n".join(
+            [
+                "# -*- python -*-",
+                "# To include in {0}_tb.wave.py:",
+                '"""Wavedisp file for module {0}."""',
+                "",
+                "from wavedisp.ast import Hierarchy",
+                "from wavedisp.ast import Group",
+                "from wavedisp.ast import Block",
+                "from wavedisp.ast import Disp",
+                "from wavedisp.ast import Divider",
+                "",
+                "",
+                "def generator():",
+                idt + '"""Generator for module {0}."""',
+                "",
+            ]
+        ).format(self.pmod["name"])
 
-        strval += idt + 'blk = Block()\n'
+        strval += idt + "blk = Block()\n"
 
-        for prn in self.pmod['ports']:
-            rng = get_range(prn['unpacked'])
+        for prn in self.pmod["ports"]:
+            rng = get_range(prn["unpacked"])
 
             if rng is None:
-                if prn['unpacked'] != '':
-                    strval += idt + 'for idx in range(X): # Update range value\n'
-                    strval += 2 * idt + 'blk.add(Disp(\'{}[idx]\'))\n'.format(prn['name'])
+                if prn["unpacked"] != "":
+                    strval += idt + "for idx in range(X): # Update range value\n"
+                    strval += 2 * idt + "blk.add(Disp('{}[idx]'))\n".format(prn["name"])
                 else:
-                    strval += idt + 'blk.add(Disp(\'{}\'))\n'.format(prn['name'])
+                    strval += idt + "blk.add(Disp('{}'))\n".format(prn["name"])
             else:
                 for idx in rng:
-                    strval += idt + 'blk.add(Disp(\'{}[{}]\'))\n'.format(prn['name'], idx)
+                    strval += idt + "blk.add(Disp('{}[{}]'))\n".format(prn["name"], idx)
 
-        strval += idt + 'return blk\n'
+        strval += idt + "return blk\n"
 
-        strval += '\n\n'
+        strval += "\n\n"
 
-        strval += '\n'.join(['# -*- python -*-',
-                             '# To include in {0}_tb.wave.py:',
-                             '"""Wavedisp file for module {0}_tb."""',
-                             '',
-                             'from wavedisp.ast import Hierarchy',
-                             'from wavedisp.ast import Group',
-                             'from wavedisp.ast import Block',
-                             'from wavedisp.ast import Disp',
-                             'from wavedisp.ast import Divider',
-                             '',
-                             '',
-                             'def generator():',
-                             idt + '"""Generator for module {0}_tb."""',
-                             idt + 'testbench = Hierarchy(\'{0}_tb\')',
-                             idt + 'inst = testbench.add(Hierarchy(\'{0}\'))',
-                             idt + 'inst.include(\'{0}.wave.py\')',
-                             idt + 'return testbench',
-                             '']).format(self.pmod['name'])
+        strval += "\n".join(
+            [
+                "# -*- python -*-",
+                "# To include in {0}_tb.wave.py:",
+                '"""Wavedisp file for module {0}_tb."""',
+                "",
+                "from wavedisp.ast import Hierarchy",
+                "from wavedisp.ast import Group",
+                "from wavedisp.ast import Block",
+                "from wavedisp.ast import Disp",
+                "from wavedisp.ast import Divider",
+                "",
+                "",
+                "def generator():",
+                idt + '"""Generator for module {0}_tb."""',
+                idt + "testbench = Hierarchy('{0}_tb')",
+                idt + "inst = testbench.add(Hierarchy('{0}'))",
+                idt + "inst.include('{0}.wave.py')",
+                idt + "return testbench",
+                "",
+            ]
+        ).format(self.pmod["name"])
 
         return strval

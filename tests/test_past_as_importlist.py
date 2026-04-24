@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README.md for further
 # information.
@@ -37,10 +36,10 @@ class TestPastAsImportList(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_0)
 
         printer = Printer(moddict, indent_size=2)
-        importlist = printer['ImportList']
+        importlist = printer["ImportList"]
         print(importlist)
 
-        self.assertEqual('\n' + importlist, TEST_MODULE_3_REF)
+        self.assertEqual("\n" + importlist, TEST_MODULE_3_REF)
 
     def test_past_as_importlist_1(self):
         """Test past as importlist with TEST_MODULE_1"""
@@ -48,18 +47,18 @@ class TestPastAsImportList(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_1)
 
         printer = Printer(moddict, indent_size=2)
-        importlist = printer['ImportList']
+        importlist = printer["ImportList"]
         print(importlist)
-        self.assertEqual('\n' + importlist, TEST_MODULE_4_REF)
+        self.assertEqual("\n" + importlist, TEST_MODULE_4_REF)
 
 
-TEST_MODULE_3_REF = ("""
-""")
+TEST_MODULE_3_REF = """
+"""
 
 
-TEST_MODULE_4_REF = ("""
-""")
+TEST_MODULE_4_REF = """
+"""
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

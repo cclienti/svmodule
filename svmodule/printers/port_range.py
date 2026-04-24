@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -27,7 +26,7 @@ def get_range(strval):
         return None
 
     try:
-        [x, y] = [int(i) for i in strval[1:-1].split(':')]
+        [x, y] = [int(i) for i in strval[1:-1].split(":")]
         return range(min(x, y), max(x, y) + 1)
 
     except ValueError:

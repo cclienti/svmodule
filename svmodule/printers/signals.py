@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -23,33 +22,32 @@ from .printerbase import PrinterBase
 
 
 class Signals(PrinterBase):
-    """Returns ports of module as declaration of signals.
-    """
+    """Returns ports of module as declaration of signals."""
 
     def getstr(self):
 
-        idt = ' ' * self.isize
+        idt = " " * self.isize
 
-        strval = ''
-        for p in self.pmod['ports']:
-            if p['interface'] is True:
+        strval = ""
+        for p in self.pmod["ports"]:
+            if p["interface"] is True:
                 continue
 
             strval += idt
 
-            if p['direction'] == 'output':
-                strval += 'wire'
+            if p["direction"] == "output":
+                strval += "wire"
             else:
-                strval += 'reg'
+                strval += "reg"
 
-            if p['packed']:
-                strval += ' ' + p['packed']
+            if p["packed"]:
+                strval += " " + p["packed"]
 
-            strval += ' ' + p['name']
+            strval += " " + p["name"]
 
-            if p['unpacked']:
-                strval += ' ' + p['unpacked']
+            if p["unpacked"]:
+                strval += " " + p["unpacked"]
 
-            strval += ';\n'
+            strval += ";\n"
 
         return strval

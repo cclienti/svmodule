@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -37,8 +36,6 @@ class Printer:
 
         for cls in PrinterBase.__subclasses__():
             if cls.__name__ == key:
-                return cls(self.moddict.parsed_module,
-                           self.isize,
-                           **self.properties).getstr()
+                return cls(self.moddict.parsed_module, self.isize, **self.properties).getstr()
 
-        return 'PrinterNotFound'
+        return "PrinterNotFound"

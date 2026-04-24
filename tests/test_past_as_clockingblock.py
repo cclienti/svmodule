@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README.md for further
 # information.
@@ -37,9 +36,9 @@ class TestPastAsClockingBlock(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_0)
 
         printer = Printer(moddict, indent_size=2)
-        clockingblock = printer['ClockingBlock']
+        clockingblock = printer["ClockingBlock"]
 
-        self.assertEqual('\n' + clockingblock, TEST_MODULE_0_REF)
+        self.assertEqual("\n" + clockingblock, TEST_MODULE_0_REF)
 
     def test_past_as_clockingblock_1(self):
         """Test past as clockingblock with TEST_MODULE_1"""
@@ -47,9 +46,9 @@ class TestPastAsClockingBlock(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_1)
 
         printer = Printer(moddict, indent_size=2)
-        clockingblock = printer['ClockingBlock']
+        clockingblock = printer["ClockingBlock"]
 
-        self.assertEqual('\n' + clockingblock, TEST_MODULE_1_REF)
+        self.assertEqual("\n" + clockingblock, TEST_MODULE_1_REF)
 
     def test_past_as_clockingblock_2(self):
         """Test past as clockingblock with TEST_MODULE_2"""
@@ -57,12 +56,12 @@ class TestPastAsClockingBlock(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_2)
 
         printer = Printer(moddict, indent_size=2)
-        clockingblock = printer['ClockingBlock']
+        clockingblock = printer["ClockingBlock"]
 
-        self.assertEqual('\n' + clockingblock, TEST_MODULE_2_REF)
+        self.assertEqual("\n" + clockingblock, TEST_MODULE_2_REF)
 
 
-TEST_MODULE_0_REF = ("""
+TEST_MODULE_0_REF = """
   default clocking cb @(posedge clk);
     output enable;
     output is_signed;
@@ -83,10 +82,10 @@ TEST_MODULE_0_REF = ("""
     input out_en;
     input out;
   endclocking
-""")
+"""
 
 
-TEST_MODULE_1_REF = ("""
+TEST_MODULE_1_REF = """
   default clocking cb @(posedge clock);
     output negedge reset_n;
     output test;
@@ -97,10 +96,10 @@ TEST_MODULE_1_REF = ("""
     input m_simple_array;
     input m_simple_array3;
   endclocking
-""")
+"""
 
 
-TEST_MODULE_2_REF = ("""
+TEST_MODULE_2_REF = """
   default clocking cb @(posedge clk);
     output  srst;
     //slave itf1;
@@ -116,8 +115,8 @@ TEST_MODULE_2_REF = ("""
     //slave oitf;
     input outsig3;
   endclocking
-""")
+"""
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

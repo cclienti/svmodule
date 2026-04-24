@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -34,23 +33,23 @@ class Logic(PrinterBase):
 
     def getstr(self):
 
-        idt = ' ' * self.isize
-        default_type = self.properties.get('default_type', None)
-        strval = ''
+        idt = " " * self.isize
+        default_type = self.properties.get("default_type", None)
+        strval = ""
 
-        for p in self.pmod['ports']:
-            port_type = p['type'] if p['type'] != '' else default_type
+        for p in self.pmod["ports"]:
+            port_type = p["type"] if p["type"] != "" else default_type
             if port_type is None:
                 continue
 
             strval += idt
-            strval += port_type + ' ' + p['packed']
-            strval += ' ' + p['name'] + p['unpacked']
+            strval += port_type + " " + p["packed"]
+            strval += " " + p["name"] + p["unpacked"]
 
             # In case of interface, we must add a '()'
-            if p['interface'] is True:
-                strval += '()'
+            if p["interface"] is True:
+                strval += "()"
 
-            strval += ';\n'
+            strval += ";\n"
 
         return strval

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README.md for further
 # information.
@@ -37,7 +36,7 @@ class TestPastAsModuleName(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_0)
 
         printer = Printer(moddict, indent_size=2)
-        modulename = printer['ModuleName']
+        modulename = printer["ModuleName"]
 
         print(modulename)
         self.assertEqual(modulename, TEST_MODULE_0_REF)
@@ -48,7 +47,7 @@ class TestPastAsModuleName(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_1)
 
         printer = Printer(moddict, indent_size=2)
-        modulename = printer['ModuleName']
+        modulename = printer["ModuleName"]
 
         print(modulename)
         self.assertEqual(modulename, TEST_MODULE_1_REF)
@@ -59,7 +58,7 @@ class TestPastAsModuleName(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_2)
 
         printer = Printer(moddict, indent_size=2)
-        modulename = printer['ModuleName']
+        modulename = printer["ModuleName"]
 
         print(modulename)
         self.assertEqual(modulename, TEST_MODULE_2_REF)
@@ -70,7 +69,7 @@ class TestPastAsModuleName(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_3)
 
         printer = Printer(moddict, indent_size=2)
-        modulename = printer['ModuleName']
+        modulename = printer["ModuleName"]
 
         print(modulename)
         self.assertEqual(modulename, TEST_MODULE_3_REF)
@@ -81,26 +80,26 @@ class TestPastAsModuleName(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_4)
 
         printer = Printer(moddict, indent_size=2)
-        modulename = printer['ModuleName']
+        modulename = printer["ModuleName"]
 
         print(modulename)
         self.assertEqual(modulename, TEST_MODULE_4_REF)
 
 
-TEST_MODULE_0_REF = ('alu_dsp')
+TEST_MODULE_0_REF = "alu_dsp"
 
 
-TEST_MODULE_1_REF = ('mymod')
+TEST_MODULE_1_REF = "mymod"
 
 
-TEST_MODULE_2_REF = ('testmod')
+TEST_MODULE_2_REF = "testmod"
 
 
-TEST_MODULE_3_REF = ('testmod2')
+TEST_MODULE_3_REF = "testmod2"
 
 
-TEST_MODULE_4_REF = ('testmod3')
+TEST_MODULE_4_REF = "testmod3"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

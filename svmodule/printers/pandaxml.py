@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -19,8 +18,8 @@
 #
 # Copyright (C) 2013-2019 Christophe Clienti
 
-from .printerbase import PrinterBase
 from .port_range import get_range
+from .printerbase import PrinterBase
 
 
 class PandaXml(PrinterBase):
@@ -46,34 +45,34 @@ class PandaXml(PrinterBase):
 
     @staticmethod
     def port_declaration(port):
-        port_name = port['name']
-        port_dir = 'IN' if port['direction'] == 'input' else 'OUT'
+        port_name = port["name"]
+        port_dir = "IN" if port["direction"] == "input" else "OUT"
 
-        if port['packed'] != '':
-            port_width = len(get_range(port['packed']))
-            port_type = 'UINT'
+        if port["packed"] != "":
+            port_width = len(get_range(port["packed"]))
+            port_type = "UINT"
         else:
             port_width = 1
-            port_type = 'BOOL'
+            port_type = "BOOL"
 
-        port_str = '          <port_o id="%s" dir="%s"' % (port_name, port_dir)
-        if 'clock' in port_name:
+        port_str = f'          <port_o id="{port_name}" dir="{port_dir}"'
+        if "clock" in port_name:
             port_str += ' is_clock="1">\n'
         else:
-            port_str += '>\n'
+            port_str += ">\n"
 
-        port_str += '            <structural_type_descriptor type="%s" size="%s"/>\n' % (port_type, port_width)
-        port_str += '          </port_o>\n'
+        port_str += f'            <structural_type_descriptor type="{port_type}" size="{port_width}"/>\n'
+        port_str += "          </port_o>\n"
 
         return port_str
 
     def getstr(self):
-        strval = PandaXml.template.replace('{module_name}', self.pmod['name'])
+        strval = PandaXml.template.replace("{module_name}", self.pmod["name"])
 
-        ports_str = ''
-        for p in self.pmod['ports']:
+        ports_str = ""
+        for p in self.pmod["ports"]:
             ports_str += PandaXml.port_declaration(p)
 
-        strval = strval.replace('{ports}', ports_str)
+        strval = strval.replace("{ports}", ports_str)
 
         return strval

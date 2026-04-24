@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -36,14 +35,13 @@ class ModDict:
 
         """
         parser = Parser(str_to_parse)
-        self.parsed_module['name'] = parser.get_module_name()
-        self.parsed_module['import'] = parser.get_import_list()
-        self.parsed_module['ports'] = parser.get_ports_list()
-        self.parsed_module['parameters'] = parser.get_parameters_list()
+        self.parsed_module["name"] = parser.get_module_name()
+        self.parsed_module["import"] = parser.get_import_list()
+        self.parsed_module["ports"] = parser.get_ports_list()
+        self.parsed_module["parameters"] = parser.get_parameters_list()
 
     def loads(self, strval):
-        """Gets instance variables from a string.
-        """
+        """Gets instance variables from a string."""
 
         self.parsed_module = eval(strval)
 
@@ -54,28 +52,27 @@ class ModDict:
     def load(self, filename):
         """Load from file the values of instance variable."""
 
-        fdesc = open(filename, 'r')
+        fdesc = open(filename)
         self.loads(fdesc.read())
         fdesc.close()
 
     def store(self, filename):
         """Store to file the values of instance variable."""
 
-        fdesc = open(filename, 'w')
+        fdesc = open(filename, "w")
         fdesc.write(self.stores())
         fdesc.close()
 
     def reverse(self):
-        """Reverse Inputs and Outputs directions in ports.
-        """
+        """Reverse Inputs and Outputs directions in ports."""
 
-        for i in range(len(self.parsed_module['ports'])):
-            port = self.parsed_module['ports'][i]
+        for i in range(len(self.parsed_module["ports"])):
+            port = self.parsed_module["ports"][i]
 
-            if port['direction'] == 'input':
-                port['direction'] = 'output'
+            if port["direction"] == "input":
+                port["direction"] = "output"
 
-            elif port['direction'] == 'output':
-                port['direction'] = 'input'
+            elif port["direction"] == "output":
+                port["direction"] = "input"
 
-            self.parsed_module['ports'][i] = port
+            self.parsed_module["ports"][i] = port

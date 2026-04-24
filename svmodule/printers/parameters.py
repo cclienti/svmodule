@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -19,8 +18,8 @@
 #
 # Copyright (C) 2013-2019 Christophe Clienti
 
-from .printerbase import PrinterBase
 from .align import vertical_align_string
+from .printerbase import PrinterBase
 
 
 class Parameters(PrinterBase):
@@ -31,24 +30,24 @@ class Parameters(PrinterBase):
 
     def getstr(self):
 
-        idt = ' ' * self.isize
+        idt = " " * self.isize
 
-        strval = ''
+        strval = ""
 
-        for p in self.pmod['parameters']:
-            strval += idt + 'localparam'
+        for p in self.pmod["parameters"]:
+            strval += idt + "localparam"
 
-            if p['type'] != '':
-                strval += ' ' + p['type']
+            if p["type"] != "":
+                strval += " " + p["type"]
 
-            if p['packed'] != '':
-                strval += ' ' + p['packed']
+            if p["packed"] != "":
+                strval += " " + p["packed"]
 
-            strval += ' ' + p['name']
+            strval += " " + p["name"]
 
-            if p['value'] != '':
-                strval += ' = ' + p['value']
+            if p["value"] != "":
+                strval += " = " + p["value"]
 
-            strval += ';\n'
+            strval += ";\n"
 
-        return vertical_align_string(strval, align_char='=', nbspaces=0)
+        return vertical_align_string(strval, align_char="=", nbspaces=0)

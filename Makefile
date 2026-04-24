@@ -1,14 +1,12 @@
 PROJECT_DIR    ?= svmodule
 TESTS_DIR      ?= tests
-PYLINT_SCORE   ?= 8.9
 
 
-flake8: venv3
-	source venv3/bin/activate && flake8 $(PROJECT_DIR) $(TESTS_DIR)
+ruff: venv3
+	source venv3/bin/activate && ruff check $(PROJECT_DIR) $(TESTS_DIR)
 
-pylint: venv3
-	source venv3/bin/activate && \
-	    pylint-fail-under --fail_under $(PYLINT_SCORE) $(PROJECT_DIR) $(TESTS_DIR)
+ruff-fix: venv3
+	source venv3/bin/activate && ruff check --fix $(PROJECT_DIR) $(TESTS_DIR)
 
 pytest: venv3
 	source venv3/bin/activate && $@
@@ -36,14 +34,13 @@ dist-check: dist
 	touch $@
 
 dist: venv3
-	source venv3/bin/activate && python3 setup.py sdist bdist_wheel
+	source venv3/bin/activate && python3 -m build
 
 venv3:
 	python3 -m venv venv3
 	source venv3/bin/activate && pip install --upgrade pip
 	source venv3/bin/activate && \
-	    pip install wheel flake8 pylint twine pytest pytest-cov pylint-fail-under \
-	    python-lsp-server
+	    pip install build twine ruff pytest pytest-cov python-lsp-server
 
 clean:
 	rm -rf test_*.dot test_*.tcl tests.xml coverage.xml htmlcov

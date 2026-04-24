@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -20,4 +19,4 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 """SVModule init."""
 
-__version__ = 'v1.3.0'
+__version__ = "v1.3.0"

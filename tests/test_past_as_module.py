@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README.md for further
 # information.
@@ -37,9 +36,9 @@ class TestPastAsModule(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_0)
 
         printer = Printer(moddict, indent_size=3)
-        module = printer['Module']
+        module = printer["Module"]
 
-        self.assertEqual('\n' + module, TEST_MODULE_0_REF)
+        self.assertEqual("\n" + module, TEST_MODULE_0_REF)
 
     def test_past_as_module_1(self):
         """Test past as module with TEST_MODULE_1"""
@@ -47,9 +46,9 @@ class TestPastAsModule(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_1)
 
         printer = Printer(moddict, indent_size=3)
-        module = printer['Module']
+        module = printer["Module"]
 
-        self.assertEqual('\n' + module, TEST_MODULE_1_REF)
+        self.assertEqual("\n" + module, TEST_MODULE_1_REF)
 
     def test_past_as_module_2(self):
         """Test past as module with TEST_MODULE_2"""
@@ -57,9 +56,9 @@ class TestPastAsModule(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_2)
 
         printer = Printer(moddict, indent_size=3)
-        module = printer['Module']
+        module = printer["Module"]
 
-        self.assertEqual('\n' + module, TEST_MODULE_2_REF)
+        self.assertEqual("\n" + module, TEST_MODULE_2_REF)
 
     def test_past_as_module_3(self):
         """Test past as module with TEST_MODULE_3"""
@@ -67,9 +66,9 @@ class TestPastAsModule(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_3)
 
         printer = Printer(moddict, indent_size=3)
-        module = printer['Module']
+        module = printer["Module"]
 
-        self.assertEqual('\n' + module, TEST_MODULE_3_REF)
+        self.assertEqual("\n" + module, TEST_MODULE_3_REF)
 
     def test_past_as_module_4(self):
         """Test past as module with TEST_MODULE_4"""
@@ -77,12 +76,12 @@ class TestPastAsModule(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_4)
 
         printer = Printer(moddict, indent_size=3)
-        module = printer['Module']
+        module = printer["Module"]
 
-        self.assertEqual('\n' + module, TEST_MODULE_4_REF)
+        self.assertEqual("\n" + module, TEST_MODULE_4_REF)
 
 
-TEST_MODULE_0_REF = ("""
+TEST_MODULE_0_REF = """
 module alu_dsp
 #(
    parameter add_extra_instr         = 1,
@@ -111,10 +110,10 @@ module alu_dsp
    output   out_en,
    output  [31:0] out
 );
-""")
+"""
 
 
-TEST_MODULE_1_REF = ("""
+TEST_MODULE_1_REF = """
 module mymod
 #(
    parameter GEN1                      = 48,
@@ -135,10 +134,10 @@ module mymod
    output logic [15:0] m_simple_array,
    output logic [15:0] m_simple_array3
 );
-""")
+"""
 
 
-TEST_MODULE_2_REF = ("""
+TEST_MODULE_2_REF = """
 module testmod
 (
    input logic  srst,
@@ -156,10 +155,10 @@ module testmod
    otherinterface.slave  oitf,
    output logic  outsig3
 );
-""")
+"""
 
 
-TEST_MODULE_3_REF = ("""
+TEST_MODULE_3_REF = """
 module testmod2
 (
    input logic  srst,
@@ -169,10 +168,10 @@ module testmod2
    otherinterface.slave  oitf[2:0],
    output logic  outsig3[1:0]
 );
-""")
+"""
 
 
-TEST_MODULE_4_REF = ("""
+TEST_MODULE_4_REF = """
 module testmod3
    import pkg1::test,
           pkg2::test2,
@@ -185,8 +184,8 @@ module testmod3
    otherinterface.slave  oitf[2:0],
    output logic  outsig3[1:0]
 );
-""")
+"""
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

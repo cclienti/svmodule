@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -20,7 +19,7 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 
 
-def vertical_align_string(strval, separator='\n', align_char='(', nbspaces=1):
+def vertical_align_string(strval, separator="\n", align_char="(", nbspaces=1):
     """Return an aligned version of strval string. The vertical
     alignment is made using an "align_char" accross lines separated by
     "separator".
@@ -51,14 +50,14 @@ def vertical_align_string(strval, separator='\n', align_char='(', nbspaces=1):
         if lencol <= 1:
             continue
 
-        for col in range(lencol-1):
+        for col in range(lencol - 1):
             x = tokenlist[row][col]
-            x += ' ' * (lendic[col] - len(x)+nbspaces)
+            x += " " * (lendic[col] - len(x) + nbspaces)
             tokenlist[row][col] = x
 
     # Build the string
     aligned = align_char.join(tokenlist[0])
     for row in tokenlist[1:]:
-        aligned += '\n' + align_char.join(row)
+        aligned += "\n" + align_char.join(row)
 
     return aligned

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README.md for further
 # information.
@@ -37,9 +36,9 @@ class TestPastAsParameters(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_0)
 
         printer = Printer(moddict, indent_size=2)
-        parameters = printer['Parameters']
+        parameters = printer["Parameters"]
 
-        self.assertEqual('\n' + parameters, TEST_MODULE_0_REF)
+        self.assertEqual("\n" + parameters, TEST_MODULE_0_REF)
 
     def test_past_as_parameters_1(self):
         """Test past as parameters with TEST_MODULE_1"""
@@ -47,9 +46,9 @@ class TestPastAsParameters(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_1)
 
         printer = Printer(moddict, indent_size=2)
-        parameters = printer['Parameters']
+        parameters = printer["Parameters"]
 
-        self.assertEqual('\n' + parameters, TEST_MODULE_1_REF)
+        self.assertEqual("\n" + parameters, TEST_MODULE_1_REF)
 
     def test_past_as_parameters_2(self):
         """Test past as parameters with TEST_MODULE_2"""
@@ -57,32 +56,32 @@ class TestPastAsParameters(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_2)
 
         printer = Printer(moddict, indent_size=2)
-        parameters = printer['Parameters']
+        parameters = printer["Parameters"]
 
-        self.assertEqual('\n' + parameters, TEST_MODULE_2_REF)
+        self.assertEqual("\n" + parameters, TEST_MODULE_2_REF)
 
 
-TEST_MODULE_0_REF = ("""
+TEST_MODULE_0_REF = """
   localparam add_extra_instr         = 1;
   localparam add_select_instr        = 1;
   localparam string add_select_instr = "M144k,auto";
   localparam shorten_pipeline        = 0;
-""")
+"""
 
 
-TEST_MODULE_1_REF = ("""
+TEST_MODULE_1_REF = """
   localparam GEN1                     = 48;
   localparam GEN2                     = 45;
   localparam GEN3_WIDTH               = $clog2(VALUE);
   localparam [31:0] DEFAULT_VAL_A     = 32'b0;
   localparam int [31:0] DEFAULT_VAL_B = 32'b0;
   localparam [31:0] DEFAULT_VAL_C;
-""")
+"""
 
 
-TEST_MODULE_2_REF = ("""
-""")
+TEST_MODULE_2_REF = """
+"""
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

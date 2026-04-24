@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -23,13 +22,12 @@ from .printerbase import PrinterBase
 
 
 class ImportList(PrinterBase):
-    """Return the list of imported package.
-    """
+    """Return the list of imported package."""
 
     def getstr(self):
-        idt = ' ' * self.isize
-        strval = ''
-        for pkg in self.pmod['import']:
-            strval += idt + 'import %s;\n' % str(pkg)
+        idt = " " * self.isize
+        strval = ""
+        for pkg in self.pmod["import"]:
+            strval += idt + f"import {str(pkg)};\n"
 
         return strval

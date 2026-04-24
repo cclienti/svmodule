@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -18,45 +17,47 @@
 #
 # Copyright (C) 2014-2019 Christophe Clienti
 
-from .printerbase import PrinterBase
 from .port_range import get_range
+from .printerbase import PrinterBase
 
 
 class Yaml(PrinterBase):
-    """Returns yaml.
-    """
+    """Returns yaml."""
 
     def getstr(self):
 
-        strval = ''
+        strval = ""
 
-        for p in self.pmod['ports']:
-
-            if p['interface'] is False:
-                display_type = 'wave'
+        for p in self.pmod["ports"]:
+            if p["interface"] is False:
+                display_type = "wave"
             else:
-                display_type = 'interface'
+                display_type = "interface"
 
-            rng = get_range(p['unpacked'])
+            rng = get_range(p["unpacked"])
 
             if rng is None:
-                if p['unpacked'] != '':
-                    loop_var = '%s_index' % p['name']
-                    strval += '- repeat: range(1,10) # Update range value\n'
-                    strval += '  var: %s\n' % loop_var
-                    strval += '  elements:\n'
-                    strval += '    - {display: %s, names: \'%s\\[$(%s)\\]\'}\n' % (display_type, p['name'], loop_var)
+                if p["unpacked"] != "":
+                    loop_var = "{}_index".format(p["name"])
+                    strval += "- repeat: range(1,10) # Update range value\n"
+                    strval += f"  var: {loop_var}\n"
+                    strval += "  elements:\n"
+                    strval += "    - {{display: {}, names: '{}\\[$({})\\]'}}\n".format(
+                        display_type, p["name"], loop_var
+                    )
                 else:
-                    strval += '- {display: %s, names: %s}\n' % (display_type, p['name'])
+                    strval += "- {{display: {}, names: {}}}\n".format(display_type, p["name"])
             else:
                 for i in rng:
-                    strval += '- {display: %s, names: \'%s\\[%d\\]\'}\n' % (display_type, p['name'], i)
+                    strval += f"- {{display: {display_type}, names: '{p['name']}\\[{i}\\]'}}\n"
 
-        strval += ("\n# To include in bench_{0}.yaml:\n"
-                   "- hierarchy: /bench_{0}\n"
-                   "  elements:\n"
-                   "    - hierarchy: {0}_inst\n"
-                   "      elements:\n"
-                   "        - !include {0}.yaml").format(self.pmod['name'])
+        strval += (
+            "\n# To include in bench_{0}.yaml:\n"
+            "- hierarchy: /bench_{0}\n"
+            "  elements:\n"
+            "    - hierarchy: {0}_inst\n"
+            "      elements:\n"
+            "        - !include {0}.yaml"
+        ).format(self.pmod["name"])
 
         return strval

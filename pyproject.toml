@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "svmodule"
+dynamic = ["version"]
+description = "[System]Verilog Module I/O parser and printer"
+readme = {file = "README.md", content-type = "text/markdown"}
+license = {text = "GPL-3.0"}
+authors = [
+    {name = "Christophe Clienti", email = "cclienti@wavecruncher.net"},
+]
+requires-python = ">=3.8"
+dependencies = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+]
+
+[project.urls]
+Homepage = "https://github.com/cclienti/svmodule"
+
+[project.scripts]
+svmodp = "svmodule.cli:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "svmodule.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["svmodule*"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=svmodule --cov-report html --junit-xml tests.xml"
+junit_family = "xunit1"
+
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+]
+ignore = []
+
+[tool.ruff.lint.isort]
+known-first-party = ["svmodule"]

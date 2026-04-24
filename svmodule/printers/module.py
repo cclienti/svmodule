@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -19,8 +18,8 @@
 #
 # Copyright (C) 2013-2019 Christophe Clienti
 
-from .printerbase import PrinterBase
 from .align import vertical_align_string
+from .printerbase import PrinterBase
 
 
 class Module(PrinterBase):
@@ -34,22 +33,22 @@ class Module(PrinterBase):
         the module decalration.
         """
 
-        idt = ' ' * self.isize
+        idt = " " * self.isize
 
-        pkgs = self.pmod['import']
+        pkgs = self.pmod["import"]
         nbpkgs = len(pkgs)
 
-        strval = ''
+        strval = ""
 
         if nbpkgs != 0:
-            strval = idt + 'import '
+            strval = idt + "import "
             for i in range(nbpkgs):
                 strval += pkgs[i]
 
-                if i == (nbpkgs-1):
-                    strval += ';'
+                if i == (nbpkgs - 1):
+                    strval += ";"
                 else:
-                    strval += ',\n' + idt + ' '*7
+                    strval += ",\n" + idt + " " * 7
 
         return strval
 
@@ -57,58 +56,58 @@ class Module(PrinterBase):
         """Returns a string with the list of parameters to be used in
         a module declaration. It will return an empty string if there
         is no parameters in the module.
-       """
-        idt = ' ' * self.isize
+        """
+        idt = " " * self.isize
 
-        params = self.pmod['parameters']
+        params = self.pmod["parameters"]
         nbparams = len(params)
 
-        strval = ''
+        strval = ""
 
         if nbparams != 0:
             for i in range(nbparams):
                 p = params[i]
 
-                if p['type'] == '' and p['packed'] == '' and p['unpacked'] == '' and p['value'] == '':
+                if p["type"] == "" and p["packed"] == "" and p["unpacked"] == "" and p["value"] == "":
                     continue
 
                 strval += idt
-                strval += 'parameter'
+                strval += "parameter"
 
-                if p['type'] != '':
-                    strval += ' ' + p['type']
+                if p["type"] != "":
+                    strval += " " + p["type"]
 
-                if p['packed'] != '':
-                    strval += ' ' + p['packed']
+                if p["packed"] != "":
+                    strval += " " + p["packed"]
 
-                strval += ' ' + p['name']
+                strval += " " + p["name"]
 
-                if p['unpacked'] != '':
-                    strval += ' ' + p['unpacked']
+                if p["unpacked"] != "":
+                    strval += " " + p["unpacked"]
 
-                if p['value'] != '':
-                    strval += ' = ' + p['value']
+                if p["value"] != "":
+                    strval += " = " + p["value"]
 
-                if i != (nbparams-1):
-                    strval += ',\n'
+                if i != (nbparams - 1):
+                    strval += ",\n"
 
-            strval = vertical_align_string(strval, align_char='=', nbspaces=0)
+            strval = vertical_align_string(strval, align_char="=", nbspaces=0)
 
-            strval = '#(\n' + strval
-            strval += '\n)'
+            strval = "#(\n" + strval
+            strval += "\n)"
 
         return strval
 
     def get_ports(self):
         """Returns a string with the list of ports to be used in a
         module declaration, if list is empty, it will return "();".
-       """
-        idt = ' ' * self.isize
+        """
+        idt = " " * self.isize
 
-        ports = self.pmod['ports']
+        ports = self.pmod["ports"]
         nbports = len(ports)
 
-        strval = ''
+        strval = ""
 
         if nbports != 0:
             for i in range(nbports):
@@ -116,38 +115,38 @@ class Module(PrinterBase):
 
                 strval += idt
 
-                if p['interface']:
-                    strval += p['type'] + '.' + p['direction']
+                if p["interface"]:
+                    strval += p["type"] + "." + p["direction"]
                 else:
-                    strval += p['direction'] + ' ' + p['type']
+                    strval += p["direction"] + " " + p["type"]
 
-                strval += ' ' + p['packed'] + ' ' + p['name'] + p['unpacked']
+                strval += " " + p["packed"] + " " + p["name"] + p["unpacked"]
 
-                if i != (nbports-1):
-                    strval += ',\n'
+                if i != (nbports - 1):
+                    strval += ",\n"
 
-            strval = '(\n' + strval
-            strval += '\n);'
+            strval = "(\n" + strval
+            strval += "\n);"
 
         return strval
 
     def getstr(self):
-        modname = self.pmod['name']
+        modname = self.pmod["name"]
 
-        strval = 'module ' + modname + '\n'
+        strval = "module " + modname + "\n"
 
         # Insert import of packages
         pkgs = self.get_import_packages()
-        if pkgs != '':
-            strval += pkgs + '\n'
+        if pkgs != "":
+            strval += pkgs + "\n"
 
         # Insert parameters
         params = self.get_parameters()
-        if params != '':
-            strval += params + '\n'
+        if params != "":
+            strval += params + "\n"
 
         # Insert ports
         strval += self.get_ports()
-        strval += '\n'
+        strval += "\n"
 
         return strval

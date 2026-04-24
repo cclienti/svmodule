@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -23,8 +22,7 @@ from .printerbase import PrinterBase
 
 
 class DocTable(PrinterBase):
-    """Returns a sphynx table with ports information.
-    """
+    """Returns a sphynx table with ports information."""
 
     def align_str_in_list(self, column):
         """Search for the longest string in the given list.
@@ -38,115 +36,115 @@ class DocTable(PrinterBase):
 
         line = []
         for strval in column:
-            strval += ' ' * (maxstr - len(strval))
+            strval += " " * (maxstr - len(strval))
             line.append(strval)
 
         return (maxstr, line)
 
     def getparameters(self):
-        if not self.pmod['parameters']:
-            return ''
+        if not self.pmod["parameters"]:
+            return ""
 
-        param_name = ['Name']
-        param_type = ['Type']
-        param_value = ['Default value']
+        param_name = ["Name"]
+        param_type = ["Type"]
+        param_value = ["Default value"]
 
-        for p in self.pmod['parameters']:
-            param_name.append(p['name'])
-            param_type.append(p['type'])
-            param_value.append(p['value'])
+        for p in self.pmod["parameters"]:
+            param_name.append(p["name"])
+            param_type.append(p["type"])
+            param_value.append(p["value"])
 
         (len_name, param_name) = self.align_str_in_list(param_name)
         (len_type, param_type) = self.align_str_in_list(param_type)
         (len_value, param_value) = self.align_str_in_list(param_value)
 
-        thickline = '='*len_name + '  '
-        thickline += '='*len_type + '  '
-        thickline += '='*len_value + '  '
-        thickline += '='*40
+        thickline = "=" * len_name + "  "
+        thickline += "=" * len_type + "  "
+        thickline += "=" * len_value + "  "
+        thickline += "=" * 40
 
-        thinline = '-'*len_name + '  '
-        thinline += '-'*len_type + '  '
-        thinline += '-'*len_value + '  '
-        thinline += '-'*40
+        thinline = "-" * len_name + "  "
+        thinline += "-" * len_type + "  "
+        thinline += "-" * len_value + "  "
+        thinline += "-" * 40
 
         # Print title
 
-        strval = thickline + '\n'
-        strval += param_name[0] + '  '
-        strval += param_type[0] + '  '
-        strval += param_value[0] + '  '
-        strval += 'Description\n'
-        strval += thickline + '\n'
+        strval = thickline + "\n"
+        strval += param_name[0] + "  "
+        strval += param_type[0] + "  "
+        strval += param_value[0] + "  "
+        strval += "Description\n"
+        strval += thickline + "\n"
 
-        for i in range(len(param_name)-1):
-            strval += param_name[i+1] + '  '
-            strval += param_type[i+1] + '  '
-            strval += param_value[i+1] + '  ' + '\n'
-            if i == len(param_name)-2:
-                strval += thickline + '\n'
+        for i in range(len(param_name) - 1):
+            strval += param_name[i + 1] + "  "
+            strval += param_type[i + 1] + "  "
+            strval += param_value[i + 1] + "  " + "\n"
+            if i == len(param_name) - 2:
+                strval += thickline + "\n"
             else:
-                strval += thinline + '\n'
+                strval += thinline + "\n"
 
-        return strval + '\n'
+        return strval + "\n"
 
     def getsignals(self):
-        if not self.pmod['ports']:
-            return ''
+        if not self.pmod["ports"]:
+            return ""
 
         # prepare tables columns
-        signame = ['Name']
-        sigdir = ['I/O type']
-        sigrange = ['Range']
+        signame = ["Name"]
+        sigdir = ["I/O type"]
+        sigrange = ["Range"]
 
-        for p in self.pmod['ports']:
-            signame.append(p['name'])
+        for p in self.pmod["ports"]:
+            signame.append(p["name"])
 
-            if p['interface'] is True:
-                sigdir.append("%s.%s" % (p['type'], p['direction']))
+            if p["interface"] is True:
+                sigdir.append("{}.{}".format(p["type"], p["direction"]))
             else:
-                sigdir.append("%s %s" % (p['direction'], p['type']))
+                sigdir.append("{} {}".format(p["direction"], p["type"]))
 
-            if p['unpacked'] != '':
-                sigrange.append(p['unpacked'])
+            if p["unpacked"] != "":
+                sigrange.append(p["unpacked"])
 
-            if p['packed'] != '':
-                sigrange.append(p['packed'])
+            if p["packed"] != "":
+                sigrange.append(p["packed"])
             else:
-                if p['unpacked'] == '':
-                    sigrange.append('1')
+                if p["unpacked"] == "":
+                    sigrange.append("1")
 
         (lenname, signame) = self.align_str_in_list(signame)
         (lendir, sigdir) = self.align_str_in_list(sigdir)
         (lenrange, sigrange) = self.align_str_in_list(sigrange)
 
-        thickline = '='*lenname + '  '
-        thickline += '='*lendir + '  '
-        thickline += '='*lenrange + '  '
-        thickline += '='*40
+        thickline = "=" * lenname + "  "
+        thickline += "=" * lendir + "  "
+        thickline += "=" * lenrange + "  "
+        thickline += "=" * 40
 
-        thinline = '-'*lenname + '  '
-        thinline += '-'*lendir + '  '
-        thinline += '-'*lenrange + '  '
-        thinline += '-'*40
+        thinline = "-" * lenname + "  "
+        thinline += "-" * lendir + "  "
+        thinline += "-" * lenrange + "  "
+        thinline += "-" * 40
 
         # Print title
 
-        strval = thickline + '\n'
-        strval += signame[0] + '  '
-        strval += sigdir[0] + '  '
-        strval += sigrange[0] + '  '
-        strval += 'Description\n'
-        strval += thickline + '\n'
+        strval = thickline + "\n"
+        strval += signame[0] + "  "
+        strval += sigdir[0] + "  "
+        strval += sigrange[0] + "  "
+        strval += "Description\n"
+        strval += thickline + "\n"
 
-        for i in range(len(signame)-1):
-            strval += signame[i+1] + '  '
-            strval += sigdir[i+1] + '  '
-            strval += sigrange[i+1] + '  ' + '\n'
-            if i == len(signame)-2:
-                strval += thickline + '\n'
+        for i in range(len(signame) - 1):
+            strval += signame[i + 1] + "  "
+            strval += sigdir[i + 1] + "  "
+            strval += sigrange[i + 1] + "  " + "\n"
+            if i == len(signame) - 2:
+                strval += thickline + "\n"
             else:
-                strval += thinline + '\n'
+                strval += thinline + "\n"
 
         return strval
 

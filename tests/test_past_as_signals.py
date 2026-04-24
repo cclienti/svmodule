@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README.md for further
 # information.
@@ -38,9 +37,9 @@ class TestPastAsSignals(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_0)
 
         printer = Printer(moddict, indent_size=2)
-        signals = printer['Signals']
+        signals = printer["Signals"]
 
-        self.assertEqual('\n' + signals, TEST_MODULE_0_REF)
+        self.assertEqual("\n" + signals, TEST_MODULE_0_REF)
 
     def test_past_as_signals_1(self):
         """Test past as signals with TEST_MODULE_1"""
@@ -48,10 +47,10 @@ class TestPastAsSignals(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_1)
 
         printer = Printer(moddict, indent_size=2)
-        signals = printer['Signals']
+        signals = printer["Signals"]
 
         print(signals)
-        self.assertEqual('\n' + signals, TEST_MODULE_1_REF)
+        self.assertEqual("\n" + signals, TEST_MODULE_1_REF)
 
     def test_past_as_signals_2(self):
         """Test past as signals with TEST_MODULE_2"""
@@ -59,10 +58,10 @@ class TestPastAsSignals(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_2)
 
         printer = Printer(moddict, indent_size=2)
-        signals = printer['Signals']
+        signals = printer["Signals"]
 
         print(signals)
-        self.assertEqual('\n' + signals, TEST_MODULE_2_REF)
+        self.assertEqual("\n" + signals, TEST_MODULE_2_REF)
 
     def test_past_as_signals_3(self):
         """Test past as signals with TEST_MODULE_3"""
@@ -70,9 +69,9 @@ class TestPastAsSignals(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_3)
 
         printer = Printer(moddict, indent_size=2)
-        signals = printer['Signals']
+        signals = printer["Signals"]
 
-        self.assertEqual('\n' + signals, TEST_MODULE_3_REF)
+        self.assertEqual("\n" + signals, TEST_MODULE_3_REF)
 
     def test_past_as_signals_4(self):
         """Test past as signals with TEST_MODULE_4"""
@@ -80,12 +79,12 @@ class TestPastAsSignals(unittest.TestCase):
         moddict.parse(inputs.TEST_MODULE_4)
 
         printer = Printer(moddict, indent_size=2)
-        signals = printer['Signals']
+        signals = printer["Signals"]
 
-        self.assertEqual('\n' + signals, TEST_MODULE_4_REF)
+        self.assertEqual("\n" + signals, TEST_MODULE_4_REF)
 
 
-TEST_MODULE_0_REF = ("""
+TEST_MODULE_0_REF = """
   reg clk;
   reg enable;
   reg is_signed;
@@ -105,10 +104,10 @@ TEST_MODULE_0_REF = ("""
   reg [2:0] opcode2;
   wire out_en;
   wire [31:0] out;
-""")
+"""
 
 
-TEST_MODULE_1_REF = ("""
+TEST_MODULE_1_REF = """
   reg reset_n;
   reg clock;
   reg [$clog2(GEN3_WIDTH+1)-1:0] test;
@@ -116,10 +115,10 @@ TEST_MODULE_1_REF = ("""
   wire [28:0][$clog2(GEN1):0] m_big_array [1:0][2:0];
   wire [15:0] m_simple_array;
   wire [15:0] m_simple_array3;
-""")
+"""
 
 
-TEST_MODULE_2_REF = ("""
+TEST_MODULE_2_REF = """
   reg srst;
   reg clk;
   reg insig1;
@@ -131,26 +130,26 @@ TEST_MODULE_2_REF = ("""
   reg another_srst;
   reg another_clock;
   wire outsig3;
-""")
+"""
 
 
-TEST_MODULE_3_REF = ("""
+TEST_MODULE_3_REF = """
   reg srst;
   reg clk;
   reg another_srst;
   reg another_clock;
   wire outsig3 [1:0];
-""")
+"""
 
 
-TEST_MODULE_4_REF = ("""
+TEST_MODULE_4_REF = """
   reg srst;
   reg clk;
   reg another_srst;
   reg another_clock;
   wire outsig3 [1:0];
-""")
+"""
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

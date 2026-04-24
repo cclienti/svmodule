@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -19,8 +18,8 @@
 #
 # Copyright (C) 2013-2019 Christophe Clienti
 
-from .printerbase import PrinterBase
 from .align import vertical_align_string
+from .printerbase import PrinterBase
 
 
 class InitLatch(PrinterBase):
@@ -30,21 +29,21 @@ class InitLatch(PrinterBase):
 
     def getstr(self):
 
-        idt = ' ' * self.isize * 2
+        idt = " " * self.isize * 2
 
-        strval = ''
+        strval = ""
 
-        for p in self.pmod['ports']:
-            if p['direction'] == 'input':
+        for p in self.pmod["ports"]:
+            if p["direction"] == "input":
                 strval += idt
 
-                strval += p['name'] + ' <= '
+                strval += p["name"] + " <= "
 
-                if p['packed'] == '' and p['unpacked'] == '':
-                    strval += '1\'b0'
+                if p["packed"] == "" and p["unpacked"] == "":
+                    strval += "1'b0"
                 else:
-                    strval += '\'0'
+                    strval += "'0"
 
                 strval += ";\n"
 
-        return vertical_align_string(strval, align_char='<=', nbspaces=0)
+        return vertical_align_string(strval, align_char="<=", nbspaces=0)

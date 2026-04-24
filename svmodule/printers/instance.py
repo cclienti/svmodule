@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of svmodule. See the root README for further
 # informations.
@@ -19,38 +18,37 @@
 #
 # Copyright (C) 2013-2019 Christophe Clienti
 
-from .printerbase import PrinterBase
 from .align import vertical_align_string
+from .printerbase import PrinterBase
 
 
 class Instance(PrinterBase):
-    """Returns the instance of the module.
-    """
+    """Returns the instance of the module."""
 
     def get_parameters(self):
         """Returns a string with the list of parameters used within a
         module instance. If there is no parameters, it will return an
         empty string.
         """
-        idt = ' ' * self.isize
+        idt = " " * self.isize
 
-        params = self.pmod['parameters']
+        params = self.pmod["parameters"]
         nbparams = len(params)
 
-        strval = ''
+        strval = ""
 
         if nbparams != 0:
-            for i in range(nbparams-1):
+            for i in range(nbparams - 1):
                 p = params[i]
-                strval += idt*2 + '.' + p['name'] + ' (' + p['name'] + '),\n'
+                strval += idt * 2 + "." + p["name"] + " (" + p["name"] + "),\n"
 
-            p = params[nbparams-1]
-            strval += idt*2 + '.' + p['name'] + ' (' + p['name'] + ')'
+            p = params[nbparams - 1]
+            strval += idt * 2 + "." + p["name"] + " (" + p["name"] + ")"
 
-            strval = vertical_align_string(strval, align_char='(', nbspaces=0)
+            strval = vertical_align_string(strval, align_char="(", nbspaces=0)
 
-            strval = idt + '#(\n' + strval
-            strval += '\n' + idt + ')'
+            strval = idt + "#(\n" + strval
+            strval += "\n" + idt + ")"
 
         return strval
 
@@ -59,49 +57,48 @@ class Instance(PrinterBase):
         module instance. If there is no ports, it will return only
         "();".
         """
-        idt = ' ' * self.isize
+        idt = " " * self.isize
 
-        ports = self.pmod['ports']
+        ports = self.pmod["ports"]
         nbports = len(ports)
 
-        strval = ''
+        strval = ""
 
         if nbports != 0:
-            for i in range(nbports-1):
+            for i in range(nbports - 1):
                 p = ports[i]
-                strval += idt*2 + '.' + p['name'] + ' (' + p['name'] + '),\n'
+                strval += idt * 2 + "." + p["name"] + " (" + p["name"] + "),\n"
 
-            p = ports[nbports-1]
-            strval += idt*2 + '.' + p['name'] + ' (' + p['name'] + ')'
+            p = ports[nbports - 1]
+            strval += idt * 2 + "." + p["name"] + " (" + p["name"] + ")"
 
-            strval = vertical_align_string(strval, align_char='(', nbspaces=0)
+            strval = vertical_align_string(strval, align_char="(", nbspaces=0)
 
-            strval = idt + '(\n' + strval
-            strval += '\n' + idt + ');'
+            strval = idt + "(\n" + strval
+            strval += "\n" + idt + ");"
 
         return strval
 
     def getstr(self):
-        idt = ' ' * self.isize
+        idt = " " * self.isize
 
-        modname = self.pmod['name']
+        modname = self.pmod["name"]
 
         strval = idt + modname
 
         # Insert parameters
         params = self.get_parameters()
-        if params != '':
-            strval += '\n' + params + '\n' + idt
+        if params != "":
+            strval += "\n" + params + "\n" + idt
         else:
-            strval += ' '
+            strval += " "
 
         # Insert strval name
-        strval += self.properties.get('instance_name',
-                                      modname + '_inst')
-        strval += '\n'
+        strval += self.properties.get("instance_name", modname + "_inst")
+        strval += "\n"
 
         # Insert ports
         strval += self.get_ports()
-        strval += '\n'
+        strval += "\n"
 
         return strval
