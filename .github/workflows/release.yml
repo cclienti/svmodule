@@ -27,8 +27,12 @@ jobs:
         run: |
           pip install .
           pip install pytest pytest-cov
+
       - name: Run pytest
         run: pytest
+
+      - name: Show coverage summary
+        run: coverage report
 
   build:
     name: Build distribution
