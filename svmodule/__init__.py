@@ -18,4 +18,11 @@
 # Copyright (C) 2013-2019 Christophe Clienti
 """SVModule init."""
 
-__version__ = "v1.3.0"
+try:
+    from importlib.metadata import version, PackageNotFoundError
+    try:
+        __version__ = version("svmodule")
+    except PackageNotFoundError:
+        __version__ = "unknown"
+except ImportError:
+    __version__ = "unknown"

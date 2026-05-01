@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61", "wheel"]
+requires = ["setuptools>=61", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -22,22 +22,25 @@ classifiers = [
     "Intended Audience :: Developers",
 ]
 
+
+[dependency-groups]
+dev = ["pytest", "pytest-cov", "ruff", "twine"]
+
 [project.urls]
 Homepage = "https://github.com/cclienti/svmodule"
 
 [project.scripts]
 svmodp = "svmodule.cli:main"
 
-[tool.setuptools.dynamic]
-version = {attr = "svmodule.__version__"}
-
 [tool.setuptools.packages.find]
 include = ["svmodule*"]
+
+[tool.setuptools_scm]
+write_to = "svmodule/_version.py"
 
 [tool.pytest.ini_options]
 addopts = "--cov=svmodule --cov-report html --junit-xml tests.xml"
 junit_family = "xunit1"
-
 
 [tool.ruff]
 line-length = 120
