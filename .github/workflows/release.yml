@@ -21,19 +21,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-
-      - name: Install ruff
-        run: pip install ruff
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
 
       - name: Check lint
-        run: ruff check svmodule tests
+        run: uv run --group dev ruff check svmodule tests
 
       - name: Check formatting
-        run: ruff format --check svmodule tests
+        run: uv run --group dev ruff format --check svmodule tests
 
   test:
     name: Run tests
@@ -41,21 +36,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-
-      - name: Install dependencies
-        run: |
-          pip install .
-          pip install pytest pytest-cov
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
 
       - name: Run pytest
-        run: pytest
+        run: uv run --group dev pytest
 
       - name: Show coverage summary
-        run: coverage report
+        run: uv run --group dev coverage report
 
   build:
     name: Build distribution
@@ -66,16 +54,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-
-      - name: Install build dependencies
-        run: pip install build
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
 
       - name: Build package
-        run: python -m build
+        run: uv build
 
       - name: Upload distribution artifacts
         uses: actions/upload-artifact@v4
